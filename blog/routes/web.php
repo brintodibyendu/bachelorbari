@@ -32,6 +32,7 @@ Route::get('/services','PagesController@services');
 // Route::get('/users/{id}/{name}',function($id,$name){
 //    return 'this is '.$id.'with name '.$name;
 // });
+Route::get('/search','PostsController@search');
 Route::resource('posts','PostsController');
 Auth::routes();
 

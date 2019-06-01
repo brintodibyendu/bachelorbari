@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    HOME
+                    BACHELOR BARI
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -14,16 +14,16 @@
                     </ul>
                     <ul class="navbar-nav mr-auto">
       <li>
-        <a class="nav-link" href="http://localhost/laravelapps/blog/public/">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
       </li>
       <li>
-        <a class="nav-link" href="http://localhost/laravelapps/blog/public/about">About</a>
+        <a class="nav-link" href="/about">About</a>
       </li>
       <li>
-        <a class="nav-link" href="http://localhost/laravelapps/blog/public/services">Service</a>
+        <a class="nav-link" href="/services">Service</a>
       </li>
       <li>
-        <a class="nav-link" href="http://localhost/laravelapps/blog/public/posts">Rooms</a>
+        <a class="nav-link" href="/posts">Rooms</a>
       </li>
     </ul>
                     <!-- Right Side Of Navbar -->
@@ -53,7 +53,7 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="http://localhost/laravelapps/blog/public/dashboard">Dashboard</a>
+                                    <a class="dropdown-item" href="/dashboard">Dashboard</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

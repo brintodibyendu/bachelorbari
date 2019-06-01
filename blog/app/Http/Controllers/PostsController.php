@@ -16,7 +16,7 @@ class PostsController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth',['except'=>['index','show']]);
+        $this->middleware('auth',['except'=>['index','show','search']]);
     }
 
 
@@ -29,13 +29,13 @@ class PostsController extends Controller
     public function index()
     {
         //
-        $posts= Post::orderBy('title','desc')->get();
+       // $posts= Post::orderBy('title','desc')->get();
         //$posts= Post::orderBy('title','desc')->take(1)->get();
        // $posts=Post::al
-       // $posts=Post::all();
+        //return User::all();
         //return Post::where('title','second post')->get(); 
       //  $posts=DB::select('SELECT * FROM posts');
-        $posts= Post::orderBy('created_at','desc')->paginate(10);
+        $posts= Post::orderBy('title','desc')->paginate(5);
         return view('posts.index')->with('posts',$posts);
     }
 
@@ -49,6 +49,17 @@ class PostsController extends Controller
         //
         return view('posts.create');
     }
+public function search(Request $request)
+    {
+        $search= $request->get('search');
+     //    $posts= Post::orderBy('title','desc')->paginate(5);
+        $posts=DB::table('posts')->where('title','LIKE','%'.$search.'%')->paginate(5);
+        //echo $posts;
+       // return view('posts.index')->with('post',$post);
+        return view('posts.index',['posts'=>$posts]);
+
+    }
+   
 
     /**
      * Store a newly created resource in storage.
@@ -56,6 +67,7 @@ class PostsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function store(Request $request)
     {
         //
@@ -82,6 +94,15 @@ class PostsController extends Controller
         $post->title=$request->input('title');
         $post->body=$request->input('body');
         $post->user_id=  auth()->user()->id; 
+        $post->type=$request->input('type');
+        $post->room_no=$request->input('room_no');
+        $post->max_people=$request->input('max_people');
+        $post->location=$request->input('location');
+        $post->cost_basis=$request->input('cost_basis');
+        $post->cost=$request->input('cost');
+        $post->from_date=$request->input('from_date');
+        $post->to_date=$request->input('to_date');
+        $post->contact=$request->input('contact');
         $post->cover_image=$fileNameToStore;
         $post->save();
         return redirect('/posts')->with('success','Post Created');
@@ -166,9 +187,9 @@ class PostsController extends Controller
         }
         if($post->cover_image!='noimage.jpg')
         {
-            Storage::delete('http://localhost/laravelapps/blog/public/storage/cover_images/'.$post->cover_image);
+            Storage::delete('public/cover_images/'.$post->cover_image);
         }
         $post->delete();
-        return redirect('/posts')->with('success','Room Deleted');
+        return redirect('/dashboard')->with('success','Room Deleted');
     }
 }

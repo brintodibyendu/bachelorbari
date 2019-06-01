@@ -17,7 +17,25 @@
     var d=document.getElementById("brinto");
     var displaytext=d.options[d.selectedIndex].text;
     document.getElementById("gender").value=displaytext;
-}</script>>
+}
+
+function ddlselect1()
+{
+    var d=document.getElementById("brinto1");
+    var displaytext=d.options[d.selectedIndex].text;
+    document.getElementById("type").value=displaytext;
+}
+
+function ddlselect2()
+{
+    var d=document.getElementById("brinto2");
+    var displaytext=d.options[d.selectedIndex].text;
+    document.getElementById("cost_basis").value=displaytext;
+}
+
+
+
+</script>>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">

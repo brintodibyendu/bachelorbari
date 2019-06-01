@@ -15,7 +15,7 @@
                     @endif
 
                     <a href="posts/create" class="btn btn-primary">Create new Room</a>
-                    <h3>Your room</h3>
+                    <center><h3>Your room</h3></center>
                     <table class="table table-striped">
                         <tr>
                             <th>Title</th>
@@ -25,7 +25,7 @@
                         @foreach($posts as $post)
                         <tr>
                             <th>{{$post->title}}</th>
-                            <th><a href="posts/{{$post->id}}/edit" class="btn btn-default">Edit</a></th>
+                            <th><a href="posts/{{$post->id}}/edit" class="btn btn-primary">Edit</a></th>
                             <th>
                                 {{Form::open(['action'=>['PostsController@destroy',$post->id],'method'=>'POST','class'=>'pull-right'])}}
     {{Form::hidden('_method','DELETE')}}
