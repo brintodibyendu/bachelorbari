@@ -30,6 +30,7 @@
    	</thead>
    	<tbody>
    		@foreach($posts as $post)
+         @if($post->booking!=="booked")
    		<tr>
    			<td>{{$post->title}}</td>
    			<td>{{$post->type}}</td>
@@ -40,6 +41,7 @@
                <a href="/posts/{{$post->id}}" class="btn btn-info">Show</a>
             </td>
    		</tr>
+         @endif
    		@endforeach
         
    	</tbody>

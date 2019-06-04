@@ -35,8 +35,9 @@ class PostsController extends Controller
         //return User::all();
         //return Post::where('title','second post')->get(); 
       //  $posts=DB::select('SELECT * FROM posts');
-        $posts= Post::orderBy('title','desc')->paginate(5);
+       $posts= Post::orderBy('title','desc')->paginate(5);
         return view('posts.index')->with('posts',$posts);
+        
     }
 
     /**
@@ -49,7 +50,10 @@ class PostsController extends Controller
         //
         return view('posts.create');
     }
-public function search(Request $request)
+
+
+
+    public function search(Request $request)
     {
         $search= $request->get('search');
      //    $posts= Post::orderBy('title','desc')->paginate(5);
@@ -59,7 +63,7 @@ public function search(Request $request)
         return view('posts.index',['posts'=>$posts]);
 
     }
-   
+
 
     /**
      * Store a newly created resource in storage.
@@ -119,6 +123,21 @@ public function search(Request $request)
         //
         $post= Post::find($id);
         return view('posts.show')->with('post',$post);
+    }
+
+
+   
+   
+   
+     public function book_room($id)
+    {
+        $ss='dick';
+        $post= Post::find($id);
+        DB::table('room_book')->insert(
+            ['rid' => $post->id, 'taken' => auth()->user()->id]);
+        $post->booking="booked";
+        $post->save();
+        return redirect('/posts');
     }
 
     /**

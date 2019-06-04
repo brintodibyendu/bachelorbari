@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use DB;
 class PagesController extends Controller
 {
     //
@@ -19,4 +19,5 @@ class PagesController extends Controller
            'services' => ['Rent Room','Select your guests','Give your free rooms']);
     	return view('pages.services')->with($data);
     }
+   
 }

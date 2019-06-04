@@ -7,6 +7,9 @@
 		<p class="card-text">{{$post->body}}</p>
 		<p class="card-text">{{$post->location}}</p>
 		<a href="{{action('PostsController@index')}}" class="btn btn-primary">Back</a>
+		{{ Form::open(['action'=>['PostsController@book_room',$post->id],'method' => 'POST']) }}
+		{{Form::submit('Book',['class'=>'btn btn-primary'])}}
+		{{ Form::close() }} 
 	</div>
 </div>
 @endsection
