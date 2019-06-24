@@ -39,6 +39,10 @@ Route::get('/search','PostsController@search');
 Route::resource('posts','PostsController');
 Auth::routes();
 Route::post('/dpractice/{id}','PostsController@book_room');
+Route::post('/dashboard/confirmroom/{id}','DashboardController@confirmroom');
+Route::post('/dashboard/cancelroom/{id}','DashboardController@cancelroom');
 Route::get('/dashboard', 'DashboardController@index');
+Route::get('/dashboard/requestroom', 'DashboardController@requestroom');
+Route::get('/dashboard/occupiedroom', 'DashboardController@occupiedroom');
 
 Route::get('/home', 'HomeController@index')->name('home');

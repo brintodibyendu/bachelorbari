@@ -35,7 +35,7 @@ class PostsController extends Controller
         //return User::all();
         //return Post::where('title','second post')->get(); 
       //  $posts=DB::select('SELECT * FROM posts');
-       $posts= Post::orderBy('title','desc')->paginate(5);
+       $posts= Post::orderBy('title','asc')->paginate(6);
         return view('posts.index')->with('posts',$posts);
         
     }
@@ -57,10 +57,10 @@ class PostsController extends Controller
     {
         $search= $request->get('search');
      //    $posts= Post::orderBy('title','desc')->paginate(5);
-        $posts=DB::table('posts')->where('title','LIKE','%'.$search.'%')->paginate(5);
+        $posts=DB::table('posts')->where('title','LIKE','%'.$search.'%')->orWhere('location','LIKE','%'.$search.'%')->orWhere('type','LIKE','%'.$search.'%')->paginate(5);
         //echo $posts;
-       // return view('posts.index')->with('post',$post);
-        return view('posts.index',['posts'=>$posts]);
+       // return view('posts.index')->with('posts',$posts);
+       return view('posts.index',['posts'=>$posts]);
 
     }
 
@@ -129,13 +129,14 @@ class PostsController extends Controller
    
    
    
-     public function book_room($id)
+     public function book_room($id,Request $request)
     {
         $ss='dick';
         $post= Post::find($id);
-        DB::table('room_book')->insert(
-            ['rid' => $post->id, 'taken' => auth()->user()->id]);
-        $post->booking="booked";
+        $post->booking="pending";
+        $post->requested_from_date=$request->input('rfrom_date');
+        $post->requested_to_date=$request->input('rto_date');
+        $post->hostid=auth()->user()->id;
         $post->save();
         return redirect('/posts');
     }

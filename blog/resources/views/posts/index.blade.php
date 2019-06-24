@@ -25,18 +25,22 @@
    			<th>Max Person</th>
    			<th>Cost</th>
    			<th>Date</th>
+            <th>Location</th>
+            <th>Contact Number</th>
             <th>Action</th>
    		</tr>
    	</thead>
    	<tbody>
    		@foreach($posts as $post)
-         @if($post->booking!=="booked")
+         @if($post->booking!=="booked" && $post->booking!=="pending")
    		<tr>
    			<td>{{$post->title}}</td>
    			<td>{{$post->type}}</td>
    			<td>{{$post->max_people}} people</td>
    			<td>{{$post->cost}}/{{$post->cost_basis}}</td>
    			<td>{{$post->from_date}}-{{$post->to_date}}</td>
+            <td>{{$post->location}}</td>
+            <td>{{$post->contact}}</td>
             <td>
                <a href="/posts/{{$post->id}}" class="btn btn-info">Show</a>
             </td>
