@@ -28,7 +28,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/dashboard';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -67,6 +67,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $perm="pending";
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -75,6 +76,7 @@ class RegisterController extends Controller
             'age' => $data['age'],
             'nid' => $data['nid'],
             'gender' => $data['gender'],
+            'admin'=> "pending",
         ]);
     }
 }

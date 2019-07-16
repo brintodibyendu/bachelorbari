@@ -30,11 +30,18 @@
         </div>
     </div>
     <input type="text" id="type" name="type" hidden/>
+     <div class="form-group row">
+     <table id="myTable"  class="table table-bordered">
+        <tr>
 
-    <div class="form-group row">
-         <div class="col-md-3">
-            <input id="max_people" min="0" type="Number" class="form-control" name="max_people" required autocomplete="max_people" placeholder="Max People">
-        </div>
+            <td><input id="rpname[]" min="0" type="text" class="form-control" name="rpname[]" required autocomplete="Name" placeholder="Name"></td>
+            <td><input id="max_people[]" min="0" type="Number" class="form-control" name="max_people[]" required autocomplete="max_people" placeholder="People"></td>
+            <td><input id="cost[]" min="0" type="Number" class="form-control" name="cost[]" required autocomplete="cost" placeholder="Cost"></td>
+            <td><input id="from_date[]" min="0" type="date" class="form-control" name="from_date[]" required autocomplete="from_date"></td>
+            <td><input id="to_date[]" min="0" type="date" class="form-control" name="to_date[]" required autocomplete="to_date"></td>
+            <td><input type="button" class="button" value="Add Room" onclick="addField();"></td>
+        </tr>
+    </table>
     </div>
 
      <div class="form-group row">
@@ -42,7 +49,6 @@
         {{Form::text('location','',['class'=>'form-control','placeholder'=>'Location'])}}
         </div>
     </div>
-
      <div class="form-group row">
         <div class="col-md-6">
              <label for="cost_basis">Cost Basis :
@@ -56,29 +62,9 @@
     <input type="text" id="cost_basis" name="cost_basis" hidden/>
 
     <div class="form-group row">
-         <div class="col-md-3">
-            <input id="cost" min="0" type="Number" class="form-control" name="cost" required autocomplete="cost" placeholder="Cost">
-        </div>
-    </div>
-
-     <div class="form-group row">
-         <div class="col-md-3">
-             <label for="from_date">From :
-             </label>
-            <input id="from_date" min="0" type="date" class="form-control" name="from_date" required autocomplete="from_date">
-        </div>
-    </div>
-
-    <div class="form-group row">
-         <div class="col-md-3">
-             <label for="to_date">To :
-             </label>
-            <input id="to_date" min="0" type="date" class="form-control" name="to_date" required autocomplete="to_date">
-        </div>
-    </div>
-
-    <div class="form-group row">
         <div class="col-md-3">
+            <label for="Contact No">Contact No :
+             </label>
         <input id="contact" min="0" max="01999999999" type="Number" class="form-control" name="contact" required autocomplete="phone-number" placeholder="11 digit">
         </div>
     </div>

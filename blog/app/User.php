@@ -10,8 +10,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
     use Notifiable;
-     
-
+     protected $table='users';
     /**
      * The attributes that are mass assignable.
      *
@@ -34,6 +33,11 @@ class User extends Authenticatable
     public function posts()
     {
         return $this->hasMany('App\Post');
+    }
+
+      public function room_books()
+    {
+        return $this->hasMany('App\room_book');
     }
 
     /**

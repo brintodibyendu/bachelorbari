@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Post;
+use App\ProductReview;
+use App\Room_info;
 use DB;
 //use Illuminate\Database\Capsule\Manager as DB;
 class PostsController extends Controller
@@ -100,17 +102,24 @@ class PostsController extends Controller
         $post->user_id=  auth()->user()->id; 
         $post->type=$request->input('type');
         $post->room_no=$request->input('room_no');
-        $post->max_people=$request->input('max_people');
         $post->location=$request->input('location');
         $post->cost_basis=$request->input('cost_basis');
-        $post->cost=$request->input('cost');
-        $post->from_date=$request->input('from_date');
-        $post->to_date=$request->input('to_date');
         $post->contact=$request->input('contact');
         $post->cover_image=$fileNameToStore;
         $post->save();
+        foreach($request->rpname as $item=>$v){
+            $data2=array(
+                'rpname'=>$request->rpname[$item],
+                'max_people'=>$request->max_people[$item],
+                'cost'=>$request->cost[$item],
+                'from_date'=>$request->from_date[$item],
+                'to_date'=>$request->to_date[$item],
+                'flat_name'=>$request->input('title'),
+            );
+        Room_info::insert($data2);
+         }
         return redirect('/posts')->with('success','Post Created');
-    }
+}
 
     /**
      * Display the specified resource.
@@ -122,7 +131,9 @@ class PostsController extends Controller
     {
         //
         $post= Post::find($id);
-        return view('posts.show')->with('post',$post);
+        $review=DB::table('product_reviews')->where('rid','=',$id)->get();
+        $rooms=DB::table('room_info')->where('flat_name','=',$post->title)->get();
+        return view('posts.show')->with('post',$post)->with('reviews',$review)->with('indi_rooms',$rooms);
     }
 
 
@@ -133,11 +144,39 @@ class PostsController extends Controller
     {
         $ss='dick';
         $post= Post::find($id);
-        $post->booking="pending";
-        $post->requested_from_date=$request->input('rfrom_date');
-        $post->requested_to_date=$request->input('rto_date');
-        $post->hostid=auth()->user()->id;
+        $plame=$request->input('fname');
+
+        DB::table('room_info')
+            ->where('rpname', $plame)
+            ->update(['booking' => "pending"]);
+
+        DB::table('room_info')
+            ->where('rpname', $plame)
+            ->update(['requested_from_date' => $request->input('rfrom_date')]);
+
+             DB::table('room_info')
+            ->where('rpname', $plame)
+            ->update(['requested_to_date' => $request->input('rto_date')]);
+
+             DB::table('room_info')
+            ->where('rpname', $plame)
+            ->update(['hostid' => auth()->user()->id]);
+        //$iroom->booking="pending";
+       
+        $post->room_no=$post->room_no-1;
+      
         $post->save();
+        return redirect('/posts');
+    }
+
+
+
+     public function review_room($id,Request $request)
+    {
+        $ss='dick';
+        $post= Post::find($id);
+        DB::table('product_reviews')->insert(
+            ['user_id' => auth()->user()->id, 'headline' => $request->input('headline'),'description' => $request->input('description'),'rating'=>$request->input('rate'),'rid'=>$post->id]);
         return redirect('/posts');
     }
 

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\User;
 use App\Post;
+use App\Room_info;
 use DB;
 
 class DashBoardController extends Controller
@@ -46,16 +47,17 @@ class DashBoardController extends Controller
     public function requestroom(Request $request)
     {
          $user_id=auth()->user()->id;
-        $posts = Post::where([['booking', '=', 'pending'],['user_id', '=', $user_id]])->get();
+        $posts = Room_info::where([['booking', '=', 'pending'],['user_id', '=', $user_id]])->get();
         return view('requestroom')->with('posts',$posts);
     }
 
     public function confirmroom($id)
     {
-         $post= Post::find($id);
+         $post= Room_info::find($id);
         DB::table('room_book')->insert(
-            ['rid' => $post->id, 'taken' => $post->hostid,'from_date' => $post->requested_from_date,'to_date'=>$post->requested_to_date]);
+            ['rid' => $post->id, 'id' => $post->hostid,'from_date' => $post->requested_from_date,'to_date'=>$post->requested_to_date]);
         $post->booking="booked";
+
         $post->save();
         return redirect('/dashboard/requestroom');
     }
@@ -71,16 +73,21 @@ class DashBoardController extends Controller
 
        public function occupiedroom(Request $request)
     {
-        $ind=0;
-         $cposts = array();
+        $ifd=0;
+        $collection = collect();
          $user_id=auth()->user()->id;
         $posts = Post::where([['booking', '=', 'booked'],['user_id', '=', $user_id]])->get();
         foreach($posts as $p){
-             $cposts[]=$p->id;
-         }
-        $userid=DB::table('room_book')->where('rid', '=', $cposts[$ind])->get();
-        $ind=$ind+1;
-        return view('occupiedroom')->with('posts',$posts)->with('userid',$userid);
+            $cposts[]=$p->id;
+        }
+              $result=DB::table('users')
+         ->where('id',function ($query) use ($posts){
+            foreach($posts as $p){
+            $query->select('id')->from('room_book')->where('rid','=',$p->id);
+        }
+        })->get();
+        
+        return view('occupiedroom')->with('posts',$posts)->with('results',$result);
     }
 
 

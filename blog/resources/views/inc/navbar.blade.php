@@ -40,7 +40,6 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item">User Register</a>
                                     <a class="dropdown-item" href="{{ route('register') }}">Host Register</a>
                                 </div>
                             </li>

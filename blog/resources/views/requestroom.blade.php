@@ -11,9 +11,10 @@
         <div class="col-md-6">
            <div class="card" style="width:350px">
     <div class="card-body">
-        <div class="card-title">{{$post->title}}</div>
-        <p class="card-text">{{$post->body}}</p>
-        <p class="card-text">{{$post->location}}</p>
+        <div class="card-title">{{$post->rpname}}</div>
+        <p class="card-text">From: {{$post->from_date}}</p>
+        <p class="card-text">Till: {{$post->to_date}}</p>
+        <p class="card-text"></p>
         <div class="row">
             <div class="col-md-4 text-left">
                 {{ Form::open(['action'=>['DashboardController@confirmroom',$post->id],'method' => 'POST']) }}
