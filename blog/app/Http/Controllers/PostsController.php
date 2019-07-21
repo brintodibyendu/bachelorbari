@@ -8,6 +8,10 @@ use App\Post;
 use App\ProductReview;
 use App\Room_info;
 use DB;
+use App\User;
+use App\Notifications\User_Added;
+use App\ProductSimilarity;
+
 //use Illuminate\Database\Capsule\Manager as DB;
 class PostsController extends Controller
 {
@@ -96,6 +100,7 @@ class PostsController extends Controller
 
 
         //create post
+        $total_cost=0;
         $post=new Post;
         $post->title=$request->input('title');
         $post->body=$request->input('body');
@@ -106,8 +111,8 @@ class PostsController extends Controller
         $post->cost_basis=$request->input('cost_basis');
         $post->contact=$request->input('contact');
         $post->cover_image=$fileNameToStore;
-        $post->save();
         foreach($request->rpname as $item=>$v){
+             $total_cost=$total_cost+$request->cost[$item];
             $data2=array(
                 'rpname'=>$request->rpname[$item],
                 'max_people'=>$request->max_people[$item],
@@ -115,9 +120,12 @@ class PostsController extends Controller
                 'from_date'=>$request->from_date[$item],
                 'to_date'=>$request->to_date[$item],
                 'flat_name'=>$request->input('title'),
+                'user_id'=>auth()->user()->id,
             );
         Room_info::insert($data2);
          }
+         $post->total_cost=$total_cost;
+          $post->save();
         return redirect('/posts')->with('success','Post Created');
 }
 
@@ -130,10 +138,27 @@ class PostsController extends Controller
     public function show($id)
     {
         //
+
+    //    $products        = json_decode(file_get_contents(storage_path('data/products-data.json')));
+    $products=Post::orderBy('title','asc')->get();
+   // return $products->toArray();
+  //  $selectedId      = intval(app('request')->input('id') ?? $id);
+   // $selectedProduct = $products[0];
+    //$selectedProduct = array_filter($products->toArray(), function ($product) use ($id) { return $product->id === $id; });
+    //if (count($selectedProducts)) {
+      //  $selectedProduct = $selectedProducts[array_keys($selectedProducts)[0]];
+    //}
+    $selectedProduct=DB::table('posts')->where('id','=',$id)->get();
+    $productSimilarity = new ProductSimilarity($products->toArray());
+    $similarityMatrix  = $productSimilarity->calculateSimilarityMatrix();
+    $products = /*return*/ $productSimilarity->getProductsSortedBySimularity($id, $similarityMatrix);
+  //  return view('ai_intro', compact('selectedId', 'selectedProduct', 'products'));
+$products=(object) $products;
+
         $post= Post::find($id);
         $review=DB::table('product_reviews')->where('rid','=',$id)->get();
         $rooms=DB::table('room_info')->where('flat_name','=',$post->title)->get();
-        return view('posts.show')->with('post',$post)->with('reviews',$review)->with('indi_rooms',$rooms);
+        return view('posts.show',compact('id', 'selectedProduct', 'products'))->with('post',$post)->with('reviews',$review)->with('indi_rooms',$rooms);
     }
 
 
@@ -173,10 +198,16 @@ class PostsController extends Controller
 
      public function review_room($id,Request $request)
     {
-        $ss='dick';
+        $ss=0;
         $post= Post::find($id);
         DB::table('product_reviews')->insert(
             ['user_id' => auth()->user()->id, 'headline' => $request->input('headline'),'description' => $request->input('description'),'rating'=>$request->input('rate'),'rid'=>$post->id]);
+        $rev=DB::table('product_reviews')->where('rid', $id)->get();
+         foreach($rev as $revs){
+            $ss=$ss+$revs->rating;
+         }
+         $post->total_rating=$ss;
+         $post->save();
         return redirect('/posts');
     }
 

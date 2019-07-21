@@ -65,8 +65,11 @@ class DashBoardController extends Controller
 
     public function cancelroom($id)
     {
-        $post= Post::find($id);
+        $post= Room_info::find($id);
         $post->booking="";
+        $post->requested_from_date="";
+        $post->requested_to_date="";
+         $post->hostid="";
         $post->save();
         return redirect('/dashboard/requestroom');
     }

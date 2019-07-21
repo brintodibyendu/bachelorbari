@@ -1,5 +1,7 @@
 @extends('layouts.app')
 @section('content')
+<div class="row justify-content-center">
+	<div class="col-md-6">
 <div class="card" style="width:420px">
 	<img style="width:100%" src="http://localhost/laravelapps/blog/public/storage/cover_images/{{$post->cover_image}}">
 	<div class="card-body">
@@ -34,7 +36,7 @@
 	</div>
 		{{ Form::open(['action'=>['PostsController@book_room',$post->id],'method' => 'POST']) }}
 
-		 @if($post->user_id != auth()->user()->id)
+		 @if(Auth::check())
 		<div class="row">
 			<div class="col-md-7 text-left">
 				<label for="name">Name :
@@ -116,5 +118,28 @@
 	    		</table>
 	    	</div>
 	    </div>
+</div>
+</div>
+<div class="col-md-6">
+        <div class="row">
+            <div class="offset-3 col-6">
+                <h5>Similar Products</h5>
+            </div>
+        </div>
+        @foreach ($products as $product)
+        <div class="row mb-5">
+            <div class="offset-3 col-6">
+                <div class="card">
+                    <div class="card-body">
+                        <img style="width:100%" src="http://localhost/laravelapps/blog/public/storage/cover_images/{{$product['cover_image']}}">  	
+                        <h5 class="card-title">Similarity: {{ round($product['similarity'] * 100, 1) }}%</h5>
+                        <p class="card-text text-muted">{{ $product['title'] }} (${{ $product['total_cost'] }})</p>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        @endforeach
+    </div>
 </div>
 @endsection

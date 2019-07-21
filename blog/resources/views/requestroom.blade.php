@@ -6,33 +6,36 @@
     <div class="row justify-content-center">
         @if(count($posts)<1)
            <h1>No Pending Request</h1>
-        @else   
+        @else  
+        <div class row>
+          <h1>Requested Rooms</h1>
+        </div>
+      <table class="table table-bordered table-dark">
+  <thead>
+    <tr>
+      <th scope="col">Room Name</th>
+      <th scope="col">From date</th>
+      <th scope="col">To Date</th>
+      <th scope="col">Confirm</th>
+      <th scope="col">Cancel</th>
+    </tr>
+  </thead>
           @foreach($posts as $post)
-        <div class="col-md-6">
-           <div class="card" style="width:350px">
-    <div class="card-body">
-        <div class="card-title">{{$post->rpname}}</div>
-        <p class="card-text">From: {{$post->from_date}}</p>
-        <p class="card-text">Till: {{$post->to_date}}</p>
-        <p class="card-text"></p>
-        <div class="row">
-            <div class="col-md-4 text-left">
-                {{ Form::open(['action'=>['DashboardController@confirmroom',$post->id],'method' => 'POST']) }}
+  <tbody>
+    <tr>
+      <td>{{$post->rpname}}</td>
+      <td>From: {{$post->from_date}}</td>
+      <td>Till: {{$post->to_date}}</td>
+      <td>{{ Form::open(['action'=>['DashboardController@confirmroom',$post->id],'method' => 'POST']) }}
                 {{Form::submit('Confirm',['class'=>'btn btn-primary'])}}
-                {{ Form::close() }}
-            </div>
-            <div class="col-md-4 text-left">
+                {{ Form::close() }}</td>
+                <td>
                 {{ Form::open(['action'=>['DashboardController@cancelroom',$post->id],'method' => 'POST']) }}
                 {{Form::submit('Cancel',['class'=>'btn btn-primary'])}}
-                {{ Form::close() }}
-            </div>
-        </div>
-    </div>
-</div>
-</br>
-        </div>
+                {{ Form::close() }}</td>
+    </tr>
         @endforeach
+        </tbody>
+</table>
         @endif
-    </div>
-</div>
 @endsection

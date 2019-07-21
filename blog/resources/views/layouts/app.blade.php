@@ -17,6 +17,11 @@
        body {font-family: Arial, Helvetica, sans-serif;}
 * {box-sizing: border-box;}
 
+
+
+
+
+
 /* Button used to open the contact form - fixed at the bottom of the page */
 .open-button {
   background-color: #555;
@@ -235,6 +240,9 @@ function closeForm() {
    document.getElementById("fpeople").value=y[1].innerHTML;
     document.getElementById("fcost").value=y[2].innerHTML;
 }
+
+
+
 </script>
 
     <!-- Fonts -->

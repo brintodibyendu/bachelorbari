@@ -25,6 +25,20 @@ use App\Notifications\User_Added;
    // return view('welcome');
     return '<h1>Hello World</h1>';
 });*/
+/*Route::get('/', function () {
+    $products        = json_decode(file_get_contents(storage_path('data/products-data.json')));
+    $selectedId      = intval(app('request')->input('id') ?? '5');
+    $selectedProduct = $products[0];
+    $selectedProducts = array_filter($products, function ($product) use ($selectedId) { return $product->id === $selectedId; });
+    if (count($selectedProducts)) {
+        $selectedProduct = $selectedProducts[array_keys($selectedProducts)[0]];
+    }
+    return $selectedProducts ;
+    $productSimilarity = new App\ProductSimilarity($products);
+    $similarityMatrix  = $productSimilarity->calculateSimilarityMatrix();
+    $products          = $productSimilarity->getProductsSortedBySimularity($selectedId, $similarityMatrix);
+    return view('ai_intro', compact('selectedId', 'selectedProduct', 'products'));
+});*/
 //Route::get('/','PagesController@index');
 Route::get('/',function(){
 return view('practice');
