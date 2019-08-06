@@ -19,6 +19,9 @@
                         <div class="col-md-4">
                             <a href="dashboard/requestroom" class="btn btn-primary">Requested Room</a>
                         </div>
+                        <div class="col-md-7 text-right">
+                            <a href="dashboard/wantingroom" class="btn btn-primary">Wanting Rooms</a>
+                        </div>
                     </div>
                     <center><h3>Your room</h3></center>
                     <table class="table table-striped">
@@ -50,4 +53,5 @@
         </div>
     </div>
 </div>
+
 @endsection

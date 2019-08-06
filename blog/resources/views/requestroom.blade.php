@@ -16,6 +16,7 @@
       <th scope="col">Room Name</th>
       <th scope="col">From date</th>
       <th scope="col">To Date</th>
+       <th scope="col">Requested By</th>
       <th scope="col">Confirm</th>
       <th scope="col">Cancel</th>
     </tr>
@@ -26,6 +27,7 @@
       <td>{{$post->rpname}}</td>
       <td>From: {{$post->from_date}}</td>
       <td>Till: {{$post->to_date}}</td>
+      <td>{{$post->host_name}}</td>
       <td>{{ Form::open(['action'=>['DashboardController@confirmroom',$post->id],'method' => 'POST']) }}
                 {{Form::submit('Confirm',['class'=>'btn btn-primary'])}}
                 {{ Form::close() }}</td>
@@ -38,4 +40,4 @@
         </tbody>
 </table>
         @endif
-@endsection
+        @endsection

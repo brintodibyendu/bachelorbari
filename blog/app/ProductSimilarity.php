@@ -77,8 +77,8 @@ class ProductSimilarity
 
     protected function calculateSimilarityScore($productA, $productB)
     {
-        //$productAFeatures = implode('', get_object_vars($productA->features));
-        //$productBFeatures = implode('', get_object_vars($productB->features));
+       // $productAFeatures = implode('', get_object_vars($productA['']));
+       // $productBFeatures = implode('', get_object_vars($productB['']));
 
         return array_sum([
            /* (Similarity::hamming($productAFeatures, $productBFeatures) * $this->featureWeight),*/
@@ -86,7 +86,6 @@ class ProductSimilarity
                 Similarity::minMaxNorm([$productA['total_cost']], 0, $this->priceHighRange),
                 Similarity::minMaxNorm([$productB['total_cost']], 0, $this->priceHighRange)
             ) * $this->priceWeight),
-            /*(Similarity::jaccard($productA->categories, $productB->categories) * $this->categoryWeight)*/
-        ]) / ($this->featureWeight + $this->priceWeight + $this->categoryWeight);
+            (Similarity::jaccard($productA['total_rating'], $productB['total_rating']) * $this->categoryWeight)]) / ($this->featureWeight + $this->priceWeight + $this->categoryWeight);
     }
 }

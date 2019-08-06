@@ -88,7 +88,7 @@
                                 <option>Male</option> 
                                 <option>Female</option>
                             </select>
-                            </div>
+                        </div>
                             </div>
                             <input type="text" id="gender" name="gender" hidden/>
                             <div class="form-group row mb-0">

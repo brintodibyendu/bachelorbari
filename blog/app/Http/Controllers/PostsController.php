@@ -11,6 +11,7 @@ use DB;
 use App\User;
 use App\Notifications\User_Added;
 use App\ProductSimilarity;
+use PDF;
 
 //use Illuminate\Database\Capsule\Manager as DB;
 class PostsController extends Controller
@@ -22,7 +23,7 @@ class PostsController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth',['except'=>['index','show','search']]);
+        $this->middleware('auth',['except'=>['index','show','search','advancesearch']]);
     }
 
 
@@ -70,6 +71,26 @@ class PostsController extends Controller
 
     }
 
+        public function advancesearch(Request $request)
+    {
+        $namesearch= $request->get('namesearch');
+        $areasearch= $request->get('areasearch');
+        $family= $request->get('is_familysearch');
+        $friend= $request->get('is_friendsearch');
+        $pet= $request->get('is_petsearch');
+        $student= $request->get('is_studentearch');
+        $job_seeker= $request->get('is_jobseekersearch');
+        $late_night= $request->get('is_latenightsearch');
+        $harddrinks= $request->get('is_harddrinkssearch');
+      //  $peoplesearch= $request->get('peoplesearch');
+     //    $posts= Post::orderBy('title','desc')->paginate(5);
+        $posts=DB::table('posts')->where('title','LIKE','%'.$namesearch.'%')->where('location','LIKE','%'.$areasearch.'%')->where('family','LIKE','%'.$family.'%')->where('friends','LIKE','%'.$friend.'%')->where('pet_allow','LIKE','%'.$pet.'%')->where('student','LIKE','%'.$student.'%')->where('job_seeker','LIKE','%'.$job_seeker.'%')->where('late_night','LIKE','%'.$late_night.'%')->where('hard_drinks','LIKE','%'.$harddrinks.'%')->paginate(5);
+        //echo $posts;
+       // return view('posts.index')->with('posts',$posts);
+       return view('posts.index',['posts'=>$posts]);
+
+    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -111,6 +132,13 @@ class PostsController extends Controller
         $post->cost_basis=$request->input('cost_basis');
         $post->contact=$request->input('contact');
         $post->cover_image=$fileNameToStore;
+        $post->family=$request->input('is_family');
+        $post->friends=$request->input('is_friend');
+        $post->pet_allow=$request->input('is_pet');
+        $post->student=$request->input('is_student');
+        $post->job_seeker=$request->input('is_jobseeker');
+        $post->late_night=$request->input('is_latenight');
+        $post->hard_drinks=$request->input('is_harddrinks');
         foreach($request->rpname as $item=>$v){
              $total_cost=$total_cost+$request->cost[$item];
             $data2=array(
@@ -186,12 +214,17 @@ $products=(object) $products;
              DB::table('room_info')
             ->where('rpname', $plame)
             ->update(['hostid' => auth()->user()->id]);
+
+             DB::table('room_info')
+            ->where('rpname', $plame)
+            ->update(['host_name' => auth()->user()->name]);
         //$iroom->booking="pending";
        
         $post->room_no=$post->room_no-1;
       
         $post->save();
-        return redirect('/posts');
+        return back();
+      //  return redirect('/posts');
     }
 
 
@@ -208,7 +241,8 @@ $products=(object) $products;
          }
          $post->total_rating=$ss;
          $post->save();
-        return redirect('/posts');
+         return back();
+        //return redirect('/posts');
     }
 
     /**

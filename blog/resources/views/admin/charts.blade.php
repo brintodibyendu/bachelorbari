@@ -7,7 +7,7 @@
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <a href="#">Dashboard</a>
+            <a href="{{url('admin')}}">Dashboard</a>
           </li>
           <li class="breadcrumb-item active">Charts</li>
         </ol>
@@ -16,9 +16,9 @@
         <div class="card mb-3">
           <div class="card-header">
             <i class="fas fa-chart-area"></i>
-            Area Chart Example</div>
+            Types of Rooms</div>
           <div class="card-body">
-            <canvas id="myAreaChart" width="100%" height="30"></canvas>
+            {!! $chart->container() !!}
           </div>
           <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
         </div>
@@ -28,9 +28,9 @@
             <div class="card mb-3">
               <div class="card-header">
                 <i class="fas fa-chart-bar"></i>
-                Bar Chart Example</div>
+                Joining date of users</div>
               <div class="card-body">
-                <canvas id="myBarChart" width="100%" height="50"></canvas>
+                {!! $linechart->container() !!}
               </div>
               <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
             </div>
@@ -39,9 +39,9 @@
             <div class="card mb-3">
               <div class="card-header">
                 <i class="fas fa-chart-pie"></i>
-                Pie Chart Example</div>
+                Rooms</div>
               <div class="card-body">
-                <canvas id="myPieChart" width="100%" height="100"></canvas>
+                {!! $roomchart->container() !!}
               </div>
               <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
             </div>
@@ -49,7 +49,6 @@
         </div>
 
         <p class="small text-center text-muted my-5">
-          <em>More chart examples coming soon...</em>
         </p>
 
       </div>

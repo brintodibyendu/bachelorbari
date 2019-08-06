@@ -7,16 +7,16 @@
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <a href="#">Admin Dashboard</a>
+            <a href="{{url('admin')}}">Admin Dashboard</a>
           </li>
           <li class="breadcrumb-item active">Tables</li>
         </ol>
-
         <!-- DataTables Example -->
         <div class="card mb-3">
           <div class="card-header">
             <i class="fas fa-table"></i>
             User Table</div>
+     <a href="{{ url('/admin/table/pdf') }}" class="btn btn-danger">PDF REPORT</a>
           <div class="card-body">
             <div class="table-responsive">
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">

@@ -19,9 +19,6 @@
 
 
 
-
-
-
 /* Button used to open the contact form - fixed at the bottom of the page */
 .open-button {
   background-color: #555;
@@ -126,9 +123,12 @@
 }
      table tr:not(:first-child){
                 cursor: pointer;transition: all .25s ease-in-out;
-            }
-            table tr:not(:first-child):hover{background-color: #ddd;}
+              }
+      table tr:not(:first-child):hover{background-color: #ddd;}
 
+
+
+      
     </style>
 
     <script >
@@ -144,6 +144,132 @@ function ddlselect1()
     var d=document.getElementById("brinto1");
     var displaytext=d.options[d.selectedIndex].text;
     document.getElementById("type").value=displaytext;
+}
+function selectarea()
+{
+    var d=document.getElementById("areas");
+    var displaytext=d.options[d.selectedIndex].text;
+    document.getElementById("areasearch").value=displaytext;
+}
+function selectkeyword()
+{
+    if(document.getElementById("family").checked==true)
+    {
+      document.getElementById("is_family").value=document.getElementById("family").value;
+    }
+    if(document.getElementById("family").checked==false)
+    {
+      document.getElementById("is_family").value="";
+    }
+    if(document.getElementById("friends").checked==true)
+    {
+      document.getElementById("is_friend").value=document.getElementById("friends").value;
+    }
+    if(document.getElementById("friends").checked==false)
+    {
+      document.getElementById("is_friend").value="";
+    }
+    if(document.getElementById("pet").checked==true)
+    {
+      document.getElementById("is_pet").value=document.getElementById("pet").value;
+    }
+      if(document.getElementById("pet").checked==false)
+    {
+      document.getElementById("is_pet").value="";
+    }
+     if(document.getElementById("student").checked==true)
+    {
+      document.getElementById("is_student").value=document.getElementById("student").value;
+    }
+      if(document.getElementById("student").checked==false)
+    {
+      document.getElementById("is_student").value="";
+    }
+     if(document.getElementById("job_seeker").checked==true)
+    {
+      document.getElementById("is_jobseeker").value=document.getElementById("job_seeker").value;
+    }
+      if(document.getElementById("job_seeker").checked==false)
+    {
+      document.getElementById("is_jobseeker").value="";
+    }
+     if(document.getElementById("late_night").checked==true)
+    {
+      document.getElementById("is_latenight").value=document.getElementById("late_night").value;
+    }
+      if(document.getElementById("late_night").checked==false)
+    {
+      document.getElementById("is_latenight").value="";
+    }
+     if(document.getElementById("hard_drinks").checked==true)
+    {
+      document.getElementById("is_harddrinks").value=document.getElementById("hard_drinks").value;
+    }
+      if(document.getElementById("hard_drinks").checked==false)
+    {
+      document.getElementById("is_harddrinks").value="";
+    }
+}
+
+
+function selectkeyword1()
+{
+    if(document.getElementById("familysearch").checked==true)
+    {
+      document.getElementById("is_familysearch").value=document.getElementById("familysearch").value;
+    }
+    if(document.getElementById("familysearch").checked==false)
+    {
+      document.getElementById("is_familysearch").value="";
+    }
+    if(document.getElementById("friendssearch").checked==true)
+    {
+      document.getElementById("is_friendsearch").value=document.getElementById("friendssearch").value;
+    }
+    if(document.getElementById("friendssearch").checked==false)
+    {
+      document.getElementById("is_friendsearch").value="";
+    }
+    if(document.getElementById("petsearch").checked==true)
+    {
+      document.getElementById("is_petsearch").value=document.getElementById("petsearch").value;
+    }
+      if(document.getElementById("petsearch").checked==false)
+    {
+      document.getElementById("is_petsearch").value="";
+    }
+     if(document.getElementById("studentsearch").checked==true)
+    {
+      document.getElementById("is_studentsearch").value=document.getElementById("studentsearch").value;
+    }
+      if(document.getElementById("studentsearch").checked==false)
+    {
+      document.getElementById("is_studentsearch").value="";
+    }
+     if(document.getElementById("job_seekersearch").checked==true)
+    {
+      document.getElementById("is_jobseekersearch").value=document.getElementById("job_seekersearch").value;
+    }
+      if(document.getElementById("job_seekersearch").checked==false)
+    {
+      document.getElementById("is_jobseekersearch").value="";
+    }
+     if(document.getElementById("late_nightsearch").checked==true)
+    {
+      document.getElementById("is_latenightsearch").value=document.getElementById("late_nightsearch").value;
+    }
+      if(document.getElementById("late_nightsearch").checked==false)
+    {
+      document.getElementById("is_latenightsearch").value="";
+    }
+     if(document.getElementById("hard_drinkssearch").checked==true)
+    {
+      document.getElementById("is_harddrinkssearch").value=document.getElementById("hard_drinkssearch").value;
+    }
+      if(document.getElementById("hard_drinkssearch").checked==false)
+    {
+      document.getElementById("is_harddrinkssearch").value="";
+    }
 }
 
 function ddlselect2()

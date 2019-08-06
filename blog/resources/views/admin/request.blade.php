@@ -7,7 +7,7 @@
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <a href="#">Admin Dashboard</a>
+            <a href="{{url('admin')}}">Admin Dashboard</a>
           </li>
           <li class="breadcrumb-item active">Tables</li>
         </ol>

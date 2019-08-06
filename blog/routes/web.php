@@ -52,6 +52,7 @@ Route::get('/services','PagesController@services');
 //    return 'this is '.$id.'with name '.$name;
 // });
 Route::get('/search','PostsController@search');
+Route::get('/advancesearch','PostsController@advancesearch');
 Route::resource('posts','PostsController');
 Auth::routes();
 Route::post('/dpractice/{id}','PostsController@book_room');
@@ -61,15 +62,18 @@ Route::post('/dashboard/cancelroom/{id}','DashboardController@cancelroom');
 Route::get('/dashboard', 'DashboardController@index');
 Route::get('/dashboard/requestroom', 'DashboardController@requestroom');
 Route::get('/dashboard/occupiedroom', 'DashboardController@occupiedroom');
+Route::get('/dashboard/occupiedroom/pdf', 'DashboardController@pdf');
+Route::get('/admin/table/pdf', 'AdminController@pdf');
 Route::get('/admin/login',function(){
 	return view('admin.login');
+});
+Route::get('/popup',function(){
+    return view('modalpopup');
 });
 Route::get('/admin/forgot',function(){
 	return view('admin.forgot-password');
 });
-Route::get('/admin/chart',function(){
-	return view('admin.charts');
-});
+Route::get('/admin/chart','AdminController@Showchart');
 Route::get('/admin/table','AdminController@create');
 Route::get('/admin/requestuser','AdminController@requestuser');
 Route::get('/admin/index',function(){
@@ -81,3 +85,6 @@ Route::post('/admin/confirmuser/{id}','AdminController@confirmuser');
 Route::get('/video','AdminController@sendmail');
 Route::get('/brinto_prac','FrontpageController@home'); 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::post('/dashboard/cancelwantingroom/{id}','DashboardController@cancelwantingroom');
+Route::get('/dashboard/wantingroom','DashboardController@wantingroom');
+Route::get('/notify','DashboardController@notify');

@@ -68,6 +68,25 @@
         <input id="contact" min="0" max="01999999999" type="Number" class="form-control" name="contact" required autocomplete="phone-number" placeholder="11 digit">
         </div>
     </div>
+     <div class="form-group row">
+        <div class="col-md-3">
+           <input onclick="selectkeyword();" type="checkbox" id="family" value="family">Family</br>
+           <input onclick="selectkeyword();" type="checkbox" id="friends" value="friends">Friends</br>
+           <input onclick="selectkeyword();" type="checkbox" id="pet" value="pet">Pet Allowed</br>
+           <input onclick="selectkeyword();" type="checkbox" id="student" value="student">student</br>
+           <input onclick="selectkeyword();" type="checkbox" id="job_seeker" value="job_seeker">job_seeker</br>
+           <input onclick="selectkeyword();" type="checkbox" id="late_night" value="late_night">late_night</br>
+           <input onclick="selectkeyword();" type="checkbox" id="hard_drinks" value="hard_drinks">hard_drinks</br>
+
+           <input type="text" id="is_family" name="is_family" hidden/>
+           <input type="text" id="is_friend" name="is_friend" hidden/>
+           <input type="text" id="is_pet" name="is_pet" hidden/>
+           <input type="text" id="is_student" name="is_student" hidden/>
+           <input type="text" id="is_jobseeker" name="is_jobseeker" hidden/>
+           <input type="text" id="is_latenight" name="is_latenight" hidden/>
+           <input type="text" id="is_harddrinks" name="is_harddrinks" hidden/>
+        </div>
+    </div>
 	<div class="form-group row">
         <div class="col-md-6">
     	{{Form::textarea('body','',['id'=>'article-ckeditor','class'=>'form-control','placeholder'=>'Short Description'])}}
