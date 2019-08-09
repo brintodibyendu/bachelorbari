@@ -8,6 +8,7 @@ use App\User;
 use App\Post;
 use App\Room_info;
 use App\Notification;
+use App\room_book;
 use DB;
 use PDF;
 
@@ -33,15 +34,17 @@ class DashBoardController extends Controller
         $user_id=auth()->user()->id;
         $user=User::find($user_id);
     //   $posts= Post::where('booking','booked')->get();
-
+        //$rooms=new Room_info();
 
     //   $posts = Post::where([['booking', '=', 'booked'],['user_id', '=', $user_id],])->get();
-
-
-
+        foreach($user->posts as $indr)
+        {
+          $rooms=DB::table('room_info')->where('flat_name','=',$indr->title)->get();
+        //  $merged = $teamStatistics->merge($teamStanding);
+        }
          //$posts=DB::table('posts')->where('id','LIKE','%'.$user_id.'%');
         //return view('dashboard')->with('posts',$posts);
-        return view('dashboard')->with('posts',$user->posts);
+        return view('dashboard')->with('posts',$user->posts)->with('indiroom',$user->rooms);
        //  return view('dashboard',['posts'=>$user->posts]);
     }
 
@@ -57,7 +60,7 @@ class DashBoardController extends Controller
     {
          $post= Room_info::find($id);
         DB::table('room_book')->insert(
-            ['rid' => $post->id, 'id' => $post->hostid,'from_date' => $post->requested_from_date,'to_date'=>$post->requested_to_date]);
+            ['rid' => $post->id, 'hostid' => $post->hostid,'from_date' => $post->requested_from_date,'to_date'=>$post->requested_to_date,'user_id'=>$post->user_id,'host_name'=>$post->host_name,'rpname'=>$post->rpname,'max_people'=>$post->max_people]);
         $post->booking="booked";
         DB::table('notifications')->insert(['user_id'=>auth()->user()->id,'user_name'=>auth()->user()->name,'guest_id'=>$post->hostid,'guest_name'=>$post->host_name,'room_id'=>$post->id,'room_name'=>$post->rpname,'status'=>'confirm']);
         $post->save();
@@ -82,7 +85,7 @@ class DashBoardController extends Controller
     {
 
          $user_id=auth()->user()->id;
-        $posts = Room_info::where([['booking', '=', 'booked'],['user_id', '=', $user_id]])->get();
+        $posts = room_book::where('user_id', '=', $user_id)->get();
            /*   $result=DB::table('users')
          ->where('id',function ($query) use ($posts){
             foreach($posts as $p){
@@ -154,5 +157,29 @@ class DashBoardController extends Controller
         }
          $output .= '</tbody></table>';
          return $output;
+    }
+
+     public function advertise($id,$name,Request $request)
+    {
+        $ss='dick';
+      //   $post= Post::find($id);
+        $plame=$name;
+
+        DB::table('room_info')
+            ->where('rpname', $plame)
+            ->update(['booking' => ""]);
+            $name="maxpeople".$id;
+
+             DB::table('room_info')
+            ->where('rpname', $plame)
+            ->update(['max_people' => $request->input($name)]);
+
+             
+        //$iroom->booking="pending";
+       
+        //$post->room_no=$post->room_no+1;
+      
+        //$post->save();
+        return back();
     }
 }

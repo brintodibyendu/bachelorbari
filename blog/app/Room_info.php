@@ -11,4 +11,8 @@ class Room_info extends Model
     public $primaryKey='id';
     public $timestamps=true;
     protected $fillable=['rpname','cost','from_date','to_date','flat_name'];
+        public function user()
+    {
+    	return $this->belongsTo('App\User');
+    }
 }

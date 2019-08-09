@@ -293,7 +293,7 @@ $products=(object) $products;
             $post->cover_image=$fileNameToStore;
         }
         $post->save();
-        return redirect('/posts')->with('success','Room Created');
+        return redirect('/posts')->with('success','Room Updated');
     }
 
     /**

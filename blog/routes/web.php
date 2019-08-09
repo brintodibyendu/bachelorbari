@@ -56,6 +56,7 @@ Route::get('/advancesearch','PostsController@advancesearch');
 Route::resource('posts','PostsController');
 Auth::routes();
 Route::post('/dpractice/{id}','PostsController@book_room');
+Route::post('/dashboard/advertise/{id}/{id1}','DashboardController@advertise');
 Route::post('/dpractice1/{id}','PostsController@review_room');
 Route::post('/dashboard/confirmroom/{id}','DashboardController@confirmroom');
 Route::post('/dashboard/cancelroom/{id}','DashboardController@cancelroom');

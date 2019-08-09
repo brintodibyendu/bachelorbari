@@ -131,9 +131,11 @@
             <div class="offset-3 col-6">
                 <div class="card">
                     <div class="card-body">
+                    	<a href="/posts/{{$product['id']}}">
                         <img style="width:100%" src="http://localhost/laravelapps/blog/public/storage/cover_images/{{$product['cover_image']}}">  	
                         <h5 class="card-title">Similarity: {{ round($product['similarity'] * 100, 1) }}%</h5>
                         <p class="card-text text-muted">{{ $product['title'] }} (${{ $product['total_cost'] }})</p>
+                    </a>
                     </div>
                     
                 </div>
