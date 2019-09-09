@@ -1,6 +1,7 @@
 @extends('layouts.app') 
 
 @section('content')
+<h1>HELLO F</h1>
 <div class row>
    <div class="col-md-6">
       <h1>Rooms Available</h1>
@@ -37,7 +38,7 @@
             <td>{{$post->location}}</td>
             <td>{{$post->contact}}</td>
             <td>
-               <a href="/posts/{{$post->id}}" class="btn btn-info">Show</a>
+               <a href="/INDIVIP/{{$post->id}}" class="btn btn-info">Show</a>
             </td>
             @endif
             @endforeach

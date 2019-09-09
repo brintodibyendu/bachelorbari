@@ -51,19 +51,26 @@
   </thead>
           @foreach($posts as $post)
   <tbody>
+    @if($post->status==NULL)
     <tr>
-      <td>{{$post->rpname}}</td>
-      <td>From: {{$post->from_date}}</td>
-      <td>Till: {{$post->to_date}}</td>
-      <td>{{$post->host_name}}</td>
-      <td>{{ Form::open(['action'=>['DashboardController@confirmroom',$post->id],'method' => 'POST']) }}
+      <td>{{$post->room_name}}</td>
+      <td>From: {{$post->requested_from_date}}</td>
+      <td>Till: {{$post->requested_to_date}}</td>
+      <td>{{$post->requested_by}}</td>
+      @if($isblock==0)
+      <td>{{ Form::open(['action'=>['DashboardController@confirmroom',$post->room_id,$post->id],'method' => 'POST']) }}
                 {{Form::submit('Confirm',['class'=>'btn btn-primary'])}}
                 {{ Form::close() }}</td>
                 <td>
-                {{ Form::open(['action'=>['DashboardController@cancelroom',$post->id],'method' => 'POST']) }}
+                {{ Form::open(['action'=>['DashboardController@cancelroom',$post->room_id,$post->id],'method' => 'POST']) }}
                 {{Form::submit('Cancel',['class'=>'btn btn-primary'])}}
                 {{ Form::close() }}</td>
+      @elseif($isblock==1)
+      <td><button type="button" class="btn btn-primary" disabled>Confirm</button></td>
+      <td><button type="button" class="btn btn-primary" disabled>Cancel</button></td>
+      @endif
     </tr>
+    @endif
         @endforeach
         </tbody>
 </table>

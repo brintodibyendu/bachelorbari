@@ -2,7 +2,7 @@
 @section('content')
 <div class="row justify-content-center">
 	<div class="col-md-6">
-<div class="card" style="width:560px">
+<div class="card" style="width:420px">
 	<img style="width:100%" src="http://localhost/laravelapps/blog/public/storage/cover_images/{{$post->cover_image}}">
 	<div class="card-body">
 		<div class="card-title">{{$post->title}}</div>
@@ -16,37 +16,25 @@
    			<th>Cost</th>
    			<th>Avilable From</th>
    			<th>Available till</th>
-   			<th>SHOW AVAILABILITY</th>
    		</tr>
    		@foreach($indi_rooms as $room)
-   		<tr onclick="myFunction(this)" id="row{{$room->id}}" class="clickable" data-toggle="collapse" data-target=".row{{$room->id}}">
-
+        
+   		<tr onclick="myFunction(this)">
    			<td>{{$room->rpname}}</td>
    			<td>{{$room->max_people}}</td>
    			<td>{{$room->cost}}</td>
    			<td>{{$room->from_date}}</td>
    			<td>{{$room->to_date}}</td>
-   			<td><i class="glyphicon glyphicon-plus"><button class="btn btn-primary">Show Rooms</button></i></td>
+   			
    		</tr>
-   		 <tr class="collapse row{{$room->id}}">
-                              <th>FROM</th><th>TO</th>
-                              
-                             </tr>
-                            @foreach($avilable as $shows)
-                             @if($room->id==$shows->room_id)
-                             <tr class="collapse row{{$room->id}}">
-                            <td>{{$shows->requested_from_date}}</td>
-                            <td>{{$shows->requested_to_date}}</td>
-                        </tr>
-        @endif
-                            @endforeach
+      
    		@endforeach
    </table>
 </div>
 <div class="row">
 
 	</div>
-		{{ Form::open(['action'=>['PostsController@book_room',$post->id],'method' => 'POST']) }}
+		{{ Form::open(['action'=>['PostsController@bookvip',$post->id],'method' => 'POST']) }}
 
 		 @if(Auth::check())
 		<div class="row">

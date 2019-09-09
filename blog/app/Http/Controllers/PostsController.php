@@ -42,9 +42,68 @@ class PostsController extends Controller
         //return User::all();
         //return Post::where('title','second post')->get(); 
       //  $posts=DB::select('SELECT * FROM posts');
+
+        $products=Post::whereBetween('id', [39, 44])->get();
+          $rr=rand( 39 , 44 );
+    $selectedProduct=DB::table('posts')->where('id','=',$rr)->paginate(5);
+    $productSimilarity = new ProductSimilarity($products->toArray());
+    $similarityMatrix  = $productSimilarity->calculateSimilarityMatrix();
+    $products =$productSimilarity->getProductsSortedBySimularity($rr, $similarityMatrix);
+  //  return view('ai_intro', compact('selectedId', 'selectedProduct', 'products'));
+$products=(object) $products;
+
        $posts= Post::orderBy('title','asc')->paginate(6);
-        return view('posts.index')->with('posts',$posts);
+       $users=User::orderBy('name','asc')->where('BLOCK','=','0')->get();
+        return view('posts.index',compact('products'))->with('posts',$posts)->with('usersb',$users);
         
+    }
+
+    public function showvip()
+    {
+
+        $products=Post::whereBetween('id', [39, 44])->get();
+          $rr=rand( 39 , 44 );
+    $selectedProduct=DB::table('posts')->where('id','=',$rr)->paginate(5);
+    $productSimilarity = new ProductSimilarity($products->toArray());
+    $similarityMatrix  = $productSimilarity->calculateSimilarityMatrix();
+    $products =$productSimilarity->getProductsSortedBySimularity($rr, $similarityMatrix);
+  //  return view('ai_intro', compact('selectedId', 'selectedProduct', 'products'));
+$products=(object) $products;
+
+       $posts= Post::orderBy('title','asc')->paginate(6);
+       $users=User::orderBy('name','asc')->where('BLOCK','=','0')->get();
+        return view('posts.vip',compact('products'))->with('posts',$posts)->with('usersb',$users);
+    }
+
+
+
+
+
+     public function showindivip($id)
+    {
+        //
+
+    //    $products        = json_decode(file_get_contents(storage_path('data/products-data.json')));
+    $products=Post::orderBy('title','asc')->get();
+   // return $products->toArray();
+  //  $selectedId      = intval(app('request')->input('id') ?? $id);
+   // $selectedProduct = $products[0];
+    //$selectedProduct = array_filter($products->toArray(), function ($product) use ($id) { return $product->id === $id; });
+    //if (count($selectedProducts)) {
+      //  $selectedProduct = $selectedProducts[array_keys($selectedProducts)[0]];
+    //}
+    $selectedProduct=DB::table('posts')->where('id','=',$id)->get();
+    $productSimilarity = new ProductSimilarity($products->toArray());
+    $similarityMatrix  = $productSimilarity->calculateSimilarityMatrix();
+    $products = /*return*/ $productSimilarity->getProductsSortedBySimularity($id, $similarityMatrix);
+  //  return view('ai_intro', compact('selectedId', 'selectedProduct', 'products'));
+$products=(object) $products;
+
+        $post= Post::find($id);
+        $review=DB::table('product_reviews')->where('rid','=',$id)->get();
+        $rooms=DB::table('room_info')->where('flat_name','=',$post->title)->get();
+      
+        return view('posts.showindivip',compact('id', 'selectedProduct', 'products'))->with('post',$post)->with('reviews',$review)->with('indi_rooms',$rooms);
     }
 
     /**
@@ -55,24 +114,89 @@ class PostsController extends Controller
     public function create()
     {
         //
-        return view('posts.create');
+        return view('posts.create')->with('isblock',auth()->user()->BLOCK);
     }
+
+
+     public function bookvip($id,Request $request)
+    {
+        $ss='dick';
+        $post= Post::find($id);
+        $plame=$request->input('fname');
+
+        DB::table('room_info')
+            ->where('rpname', $plame)
+            ->update(['booking' => "vip booked"]);
+
+        DB::table('room_info')
+            ->where('rpname', $plame)
+            ->update(['requested_from_date' => $request->input('rfrom_date')]);
+
+             DB::table('room_info')
+            ->where('rpname', $plame)
+            ->update(['requested_to_date' => $request->input('rto_date')]);
+
+             DB::table('room_info')
+            ->where('rpname', $plame)
+            ->update(['hostid' => auth()->user()->id]);
+
+             DB::table('room_info')
+            ->where('rpname', $plame)
+            ->update(['host_name' => auth()->user()->name]);
+
+            DB::table('room_info')
+            ->where('rpname', $plame)
+            ->update(['vipbook' => "YES"]);
+        //$iroom->booking="pending";
+       
+      //  $post->room_no=$post->room_no-1;
+      
+        $post->save();
+        return back();
+      //  return redirect('/posts');
+    }
+
+
+
+
+
 
 
 
     public function search(Request $request)
     {
+         $products=Post::whereBetween('id', [39, 44])->get();
+          $rr=rand( 39 , 44 );
+    $selectedProduct=DB::table('posts')->where('id','=',$rr)->paginate(5);
+    $productSimilarity = new ProductSimilarity($products->toArray());
+    $similarityMatrix  = $productSimilarity->calculateSimilarityMatrix();
+    $products =$productSimilarity->getProductsSortedBySimularity($rr, $similarityMatrix);
+  //  return view('ai_intro', compact('selectedId', 'selectedProduct', 'products'));
+$products=(object) $products;
         $search= $request->get('search');
      //    $posts= Post::orderBy('title','desc')->paginate(5);
         $posts=DB::table('posts')->where('title','LIKE','%'.$search.'%')->orWhere('location','LIKE','%'.$search.'%')->orWhere('type','LIKE','%'.$search.'%')->paginate(5);
         //echo $posts;
        // return view('posts.index')->with('posts',$posts);
-       return view('posts.index',['posts'=>$posts]);
+        $users=User::orderBy('name','asc')->where('BLOCK','=','0')->get();
+       return view('posts.index',compact('products'))->with('usersb',$users)->with('posts',$posts);
 
     }
 
         public function advancesearch(Request $request)
     {
+       // $query->whereBetween('age', [$ageFrom, $ageTo]);
+         $products=Post::whereBetween('id', [39, 44])->get();
+          $rr=rand( 39 , 44 );
+    $selectedProduct=DB::table('posts')->where('id','=',$rr)->paginate(5);
+    $productSimilarity = new ProductSimilarity($products->toArray());
+    $similarityMatrix  = $productSimilarity->calculateSimilarityMatrix();
+    $products =$productSimilarity->getProductsSortedBySimularity($rr, $similarityMatrix);
+  //  return view('ai_intro', compact('selectedId', 'selectedProduct', 'products'));
+$products=(object) $products;
+//$products=$products->->get();
+
+
         $namesearch= $request->get('namesearch');
         $areasearch= $request->get('areasearch');
         $family= $request->get('is_familysearch');
@@ -87,7 +211,9 @@ class PostsController extends Controller
         $posts=DB::table('posts')->where('title','LIKE','%'.$namesearch.'%')->where('location','LIKE','%'.$areasearch.'%')->where('family','LIKE','%'.$family.'%')->where('friends','LIKE','%'.$friend.'%')->where('pet_allow','LIKE','%'.$pet.'%')->where('student','LIKE','%'.$student.'%')->where('job_seeker','LIKE','%'.$job_seeker.'%')->where('late_night','LIKE','%'.$late_night.'%')->where('hard_drinks','LIKE','%'.$harddrinks.'%')->paginate(5);
         //echo $posts;
        // return view('posts.index')->with('posts',$posts);
-       return view('posts.index',['posts'=>$posts]);
+        $users=User::orderBy('name','asc')->where('BLOCK','=','0')->get();
+       return view('posts.index',compact('products'))->with('posts',$posts)->with('usersb',$users);
+      // return view('posts.index',)->with('post',$post)->with('reviews',$review)->with('indi_rooms',$rooms);
 
     }
 
@@ -169,6 +295,7 @@ class PostsController extends Controller
 
     //    $products        = json_decode(file_get_contents(storage_path('data/products-data.json')));
     $products=Post::orderBy('title','asc')->get();
+    $showav=DB::table('pending_request')->where('status',"CONFIRM")->get();
    // return $products->toArray();
   //  $selectedId      = intval(app('request')->input('id') ?? $id);
    // $selectedProduct = $products[0];
@@ -186,7 +313,7 @@ $products=(object) $products;
         $post= Post::find($id);
         $review=DB::table('product_reviews')->where('rid','=',$id)->get();
         $rooms=DB::table('room_info')->where('flat_name','=',$post->title)->get();
-        return view('posts.show',compact('id', 'selectedProduct', 'products'))->with('post',$post)->with('reviews',$review)->with('indi_rooms',$rooms);
+        return view('posts.show',compact('id', 'selectedProduct', 'products'))->with('post',$post)->with('reviews',$review)->with('indi_rooms',$rooms)->with('avilable',$showav);
     }
 
 
@@ -197,8 +324,9 @@ $products=(object) $products;
     {
         $ss='dick';
         $post= Post::find($id);
+        
         $plame=$request->input('fname');
-
+       
         DB::table('room_info')
             ->where('rpname', $plame)
             ->update(['booking' => "pending"]);
@@ -215,13 +343,23 @@ $products=(object) $products;
             ->where('rpname', $plame)
             ->update(['hostid' => auth()->user()->id]);
 
+        
              DB::table('room_info')
             ->where('rpname', $plame)
             ->update(['host_name' => auth()->user()->name]);
         //$iroom->booking="pending";
        
-        $post->room_no=$post->room_no-1;
-      
+      //  $post->room_no=$post->room_no-1;
+
+
+        $room= DB::table('room_info')->where('rpname',$plame)->get();
+        foreach($room as $rooms){
+            $rrid=$rooms->id;
+            $hhid=$rooms->user_id;
+        }
+
+        DB::table('pending_request')->insert(
+            ['requested_by_id' => auth()->user()->id, 'requested_from_date' => $request->input('rfrom_date'),'requested_to_date' =>  $request->input('rto_date'),'requested_by'=>auth()->user()->name,'room_name'=>$request->input('fname'),'flat_name'=>$post->title,'flat_id'=>$post->id,'room_id'=>$rrid,'host_id'=>$hhid]);    
         $post->save();
         return back();
       //  return redirect('/posts');

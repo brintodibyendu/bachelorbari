@@ -57,9 +57,13 @@
       <td>From: {{$post->from_date}}</td>
       <td>Till: {{$post->to_date}}</td>
       <td>{{$post->host_name}}</td>
-      <td>{{ Form::open(['action'=>['DashboardController@advertise',$post->rid,$post->rpname],'method' => 'POST']) }}
+      @if($isblock==0)
+      <td>{{ Form::open(['action'=>['DashboardController@advertise',$post->rid,$post->hostid,$post->max_people,$post->rpname],'method' => 'POST']) }}
       <input type="text" name="maxpeople{{$post->rid}}" id="maxpeople" value="{{$post->max_people}}" size="7">&nbsp &nbsp
       {{Form::submit('Advertise',['class'=>'btn btn-primary'])}}{{ Form::close() }}</td>
+      @elseif($isblock==1)
+      <td><button type="button" class="btn btn-primary" disabled>Advertise</button></td>
+      @endif
     </tr>
         @endforeach
        

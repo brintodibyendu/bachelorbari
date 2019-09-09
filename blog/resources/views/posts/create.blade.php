@@ -2,6 +2,10 @@
 
 @section('content')
 <div class="container">
+  @if($isblock==1)
+  <h1>SORRY YOU HAVE BEEN BOCK</h1>
+  
+  @elseif($isblock==0)
     <div class="row justify-content-center">
         <div class="col-md-9">
             <div class="card">
@@ -104,4 +108,5 @@
 </div>
 </div>
 </div>
+@endif
 @endsection

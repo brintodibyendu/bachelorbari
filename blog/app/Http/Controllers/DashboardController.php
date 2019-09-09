@@ -52,23 +52,25 @@ class DashBoardController extends Controller
     public function requestroom(Request $request)
     {
          $user_id=auth()->user()->id;
-        $posts = Room_info::where([['booking', '=', 'pending'],['user_id', '=', $user_id]])->get();
-        return view('requestroom')->with('posts',$posts);
+       # $posts = Room_info::where([['booking', '=', 'pending'],['user_id', '=', $user_id]])->get();
+         $posts=DB::table('pending_request')->where('host_id',auth()->user()->id)->get();
+        return view('requestroom')->with('posts',$posts)->with('isblock',auth()->user()->BLOCK);
     }
 
-    public function confirmroom($id)
+    public function confirmroom($id,$id1)
     {
          $post= Room_info::find($id);
         DB::table('room_book')->insert(
             ['rid' => $post->id, 'hostid' => $post->hostid,'from_date' => $post->requested_from_date,'to_date'=>$post->requested_to_date,'user_id'=>$post->user_id,'host_name'=>$post->host_name,'rpname'=>$post->rpname,'max_people'=>$post->max_people]);
         $post->booking="booked";
         DB::table('notifications')->insert(['user_id'=>auth()->user()->id,'user_name'=>auth()->user()->name,'guest_id'=>$post->hostid,'guest_name'=>$post->host_name,'room_id'=>$post->id,'room_name'=>$post->rpname,'status'=>'confirm']);
+        DB::table('pending_request')->where('id', $id1)->update(['status'=>"CONFIRM"]);
         $post->save();
         return redirect('/dashboard/requestroom');
     }
 
 
-    public function cancelroom($id)
+    public function cancelroom($id,$id1)
     {
         $post= Room_info::find($id);
          DB::table('notifications')->insert(['user_id'=>auth()->user()->id,'user_name'=>auth()->user()->name,'guest_id'=>$post->hostid,'guest_name'=>$post->host_name,'room_id'=>$post->id,'room_name'=>$post->rpname,'status'=>'cancel']);
@@ -77,6 +79,7 @@ class DashBoardController extends Controller
         $post->requested_to_date="";
          $post->hostid="";
           $post->host_name="";
+           DB::table('pending_request')->where('id', $id1)->update(['status'=>"CANCEL"]);
         $post->save();
         return redirect('/dashboard/requestroom');
     }
@@ -93,7 +96,7 @@ class DashBoardController extends Controller
         }
         })->get();*/
         
-        return view('occupiedroom')->with('posts',$posts);
+        return view('occupiedroom')->with('posts',$posts)->with('isblock',auth()->user()->BLOCK);
     }
 
      public function wantingroom(Request $request)
@@ -159,7 +162,7 @@ class DashBoardController extends Controller
          return $output;
     }
 
-     public function advertise($id,$name,Request $request)
+     public function advertise($id,$hid,$mpeople,$name,Request $request)
     {
         $ss='dick';
       //   $post= Post::find($id);
@@ -173,7 +176,12 @@ class DashBoardController extends Controller
              DB::table('room_info')
             ->where('rpname', $plame)
             ->update(['max_people' => $request->input($name)]);
+        
 
+          DB::table('room_book')
+            ->where('rid', $id)
+            ->where('hostid',$hid)
+            ->update(['max_people' => $mpeople-$request->input($name)]);
              
         //$iroom->booking="pending";
        

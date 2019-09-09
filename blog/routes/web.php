@@ -48,18 +48,23 @@ Route::get('/about',function(){
 });
 
 Route::get('/services','PagesController@services');
+Route::get('/VIP','PostsController@showvip');
+Route::get('/INDIVIP/{id}','PostsController@showindivip');
+Route::post('/VIPBOOK/{id}','PostsController@bookvip');
 // Route::get('/users/{id}/{name}',function($id,$name){
 //    return 'this is '.$id.'with name '.$name;
 // });
 Route::get('/search','PostsController@search');
+Route::get('/admin/showuser/{id}','AdminController@showindiuser');
+Route::get('/admin/pdfini/{id}','AdminController@pdfindiuser');
 Route::get('/advancesearch','PostsController@advancesearch');
 Route::resource('posts','PostsController');
 Auth::routes();
 Route::post('/dpractice/{id}','PostsController@book_room');
-Route::post('/dashboard/advertise/{id}/{id1}','DashboardController@advertise');
+Route::post('/dashboard/advertise/{id}/{id1}/{id2}/{id3}','DashboardController@advertise');
 Route::post('/dpractice1/{id}','PostsController@review_room');
-Route::post('/dashboard/confirmroom/{id}','DashboardController@confirmroom');
-Route::post('/dashboard/cancelroom/{id}','DashboardController@cancelroom');
+Route::post('/dashboard/confirmroom/{id}/{id1}','DashboardController@confirmroom');
+Route::post('/dashboard/cancelroom/{id}/{id1}','DashboardController@cancelroom');
 Route::get('/dashboard', 'DashboardController@index');
 Route::get('/dashboard/requestroom', 'DashboardController@requestroom');
 Route::get('/dashboard/occupiedroom', 'DashboardController@occupiedroom');
@@ -82,7 +87,8 @@ Route::get('/admin/index',function(){
 });
 Route::resource('admin','AdminController');
 Route::post('/admin/confirmuser/{id}','AdminController@confirmuser');
-
+Route::post('/admin/blockuser/{id}','AdminController@Blockuser');
+Route::post('/admin/unblockuser/{id}','AdminController@UnBlockuser');
 Route::get('/video','AdminController@sendmail');
 Route::get('/brinto_prac','FrontpageController@home'); 
 Route::get('/home', 'HomeController@index')->name('home');

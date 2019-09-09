@@ -68,11 +68,15 @@
 
          <div class="md-form mb-3">
            <input onclick="selectkeyword1();" type="checkbox" id="familysearch" value="family"><big>Family</big>
+           &nbsp &nbsp &nbsp &nbsp &nbsp
            <input onclick="selectkeyword1();" type="checkbox" id="friendssearch" value="friends"><big>Friends</big>
+           &nbsp &nbsp &nbsp &nbsp 
            <input onclick="selectkeyword1();" type="checkbox" id="petsearch" value="pet"><big>Pet Allowed</big></br>
            <input onclick="selectkeyword1();" type="checkbox" id="studentsearch" value="student"><big>student</big>
+           &nbsp &nbsp &nbsp &nbsp
            <input onclick="selectkeyword1();" type="checkbox" id="job_seekersearch" value="job_seeker"><big>job_seeker</big></br>
            <input onclick="selectkeyword1();" type="checkbox" id="late_nightsearch" value="late_night"><big>late_night</big>
+           &nbsp &nbsp
            <input onclick="selectkeyword1();" type="checkbox" id="hard_drinkssearch" value="hard_drinks"><big>hard_drinks</big>
 
            <input type="text" id="is_familysearch" name="is_familysearch" hidden/>

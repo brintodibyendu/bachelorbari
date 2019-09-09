@@ -16,7 +16,7 @@
           <div class="card-header">
             <i class="fas fa-table"></i>
             User Table</div>
-     <a href="{{ url('/admin/table/pdf') }}" class="btn btn-danger">PDF REPORT</a>
+     <a href="{{ url('/admin/table/pdf') }}" class="btn btn-primary">PDF REPORT</a>
           <div class="card-body">
             <div class="table-responsive">
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -28,6 +28,8 @@
                     <th>Age</th>
                     <th>National ID</th>
                     <th>Start Date</th>
+                    <th>Block</th>
+                    <th>SHOW DETAILS</th>
                   </tr>
                 </thead>
                 <tfoot>
@@ -38,18 +40,35 @@
                     <th>Age</th>
                     <th>National ID</th>
                     <th>Start Date</th>
+                    <th>Block</th>
+                    <th>SHOW DETAILS</th>
                   </tr>
                 </tfoot>
                 <tbody>
                   @foreach($users as $user)
+                  @if($user->admin=="yes")
                   <tr>
                     <td>{{$user->name}}</td>
                     <td>{{$user->email}}</td>
                     <td>{{$user->phone_number}}</td>
                     <td>{{$user->age}}</td>
                     <td>{{$user->nid}}</td>
-                    <td>{{$user->created_at}} people</td>
+                    <td>{{$user->created_at}}</td>
+                       <td><a href="/admin/showuser/{{$user->id}}" class="btn btn-info">Show</a></td>
+                    <th>
+                      @if($user->BLOCK==0)
+                     {{ Form::open(['action'=>['AdminController@Blockuser',$user->id],'method' => 'POST']) }}
+                {{Form::submit('Block',['class'=>'btn btn-danger','id'=>'blockbut'])}}
+                {{ Form::close() }}
+                @endif
+                 @if($user->BLOCK==1)
+                     {{ Form::open(['action'=>['AdminController@UnBlockuser',$user->id],'method' => 'POST']) }}
+                {{Form::submit('UnBlock',['class'=>'btn btn-primary','id'=>'blockbut'])}}
+                {{ Form::close() }}
+                @endif
+                    </th>
                   </tr>
+                  @endif
                   @endforeach
                 </tbody>
               </table>

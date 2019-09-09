@@ -23,7 +23,13 @@
 
   <!-- Custom styles for this template-->
   <link href="{{URL::asset('css/sb-admin.css')}}" rel="stylesheet">
-
+  <script type="text/javascript">
+   function change() // no ';' here
+{
+    if (this.value=="Close Curtain") this.value = "Open Curtain";
+    else this.value = "Close Curtain";
+}
+  </script>
 </head>
 
 <body id="page-top">

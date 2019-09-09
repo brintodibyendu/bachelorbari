@@ -47,7 +47,7 @@
   <script src="vendor/chart.js/Chart.min.js"></script>
   <script src="vendor/datatables/jquery.dataTables.js"></script>
   <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
-
+  
   <!-- Custom scripts for all pages-->
   <script src="js/sb-admin.min.js"></script>
 

@@ -65,7 +65,7 @@
                         </tr>
                          <tr class="collapse row{{$post->id}}">
                               <th>Flat Name</th><th>People</th><th>Cost</th><th>From</th><th>To</th>
-                              <th>Status</th>
+                              
                              </tr>
                             @foreach($indiroom as $room)
                              @if($room->flat_name==$post->title)
@@ -75,7 +75,6 @@
                             <td>{{$room->cost}}</td>
                             <td>{{$room->from_date}}</td>
                             <td>{{$room->to_date}}</td>
-                            <td>{{$room->booking}}</td>
                         </tr>
                             @endif
                             @endforeach
