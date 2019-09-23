@@ -9,13 +9,23 @@ use App\User;
 use App\Post;
 use App\Notifications\User_Added;
 use App\Charts\pulseChart;
+use App\Requestroomadmin;
+use App\Request_room_info;
 use PDF;
 
 class AdminController extends Controller
 {
     /**
+     * index
      * Display a listing of the resource.
-     *
+     *@bodyParam posts1 int required count of hostel type
+     *@bodyParam posts2 int required count of resident type
+     *@bodyParam room1 int required count of location type 1
+     *@bodyParam room2 int required count of location type 2
+     *@bodyParam room3 int required count of location type 3
+     *@queryParam type string required type of apartment. Example: Resident
+     *@queryParam created_at date required date of the creation
+     *@queryParam location string required type of apartment
      * @return \Illuminate\Http\Response
      */
 
@@ -52,6 +62,21 @@ class AdminController extends Controller
         $dbarset->color(collect(['#7d5fff','#32ff7e','#32ff7e','#32ff7e','#32ff7e','#32ff7e']));
         return view('admin.index',compact('chart','linechart','roomchart'))->with('admin',$users);
     }
+    
+    /**
+     * show indi users
+     * Display users of the system.
+     *@bodyParam posts1 int required count of hostel type
+     *@bodyParam posts2 int required count of resident type
+     *@bodyParam room1 int required count of location type 1
+     *@bodyParam room2 int required count of location type 2
+     *@bodyParam room3 int required count of location type 3
+     *@queryParam id int required id of user. Example: 3
+     *@queryParam type string required type of apartment. Example: Resident
+     *@queryParam created_at date required date of the creation
+     *@queryParam location string required type of apartment
+     *
+     */
 
 
 
@@ -70,7 +95,9 @@ class AdminController extends Controller
          $users4 = User::whereDate('created_at', '2019-06-29')->count();
          $linechart = new pulseChart;
         $linechart->labels(['type1', 'type2','type3','type4']);
-        $linechart->dataset('Join', 'line', [$users1, $users2,$users3,$users4]);
+        $dliset=$linechart->dataset('Join', 'line', [$users1, $users2,$users3,$users4]);
+        $dliset->backgroundColor(collect(['#7158e2','#3ae374','#ff4d4d']));
+        $dliset->color(collect(['#7d5fff','#32ff7e','#32ff7e']));
          $room1 = Post::where('location','LIKE', '%'.'motijheel'.'%')->count();
          $room2 = Post::where('location','LIKE', '%'.'adabor'.'%')->count();
           $room3 = Post::where('location','LIKE', '%'.'dhanmondi'.'%')->count();
@@ -93,6 +120,21 @@ class AdminController extends Controller
         return view('admin.showindi',compact('chart','linechart','roomchart'))->with('posts',$posts)->with('uuid',$id);
     }
 
+    
+    /**
+     * show chart
+     * Display charts.
+     *@bodyParam posts1 int required count of hostel type
+     *@bodyParam posts2 int required count of resident type
+     *@bodyParam room1 int required count of location type 1
+     *@bodyParam room2 int required count of location type 2
+     *@bodyParam room3 int required count of location type 3
+     *@queryParam id int required id of user. Example: 3
+     *@queryParam type string required type of apartment. Example: Resident
+     *@queryParam created_at date required date of the creation
+     *@queryParam location string required type of apartment
+     *
+     */
 
 
 
@@ -130,9 +172,18 @@ class AdminController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     *create
+     *Show the form for creating a new chart.
+     *@bodyParam posts1 int required count of hostel type
+     *@bodyParam posts2 int required count of resident type
+     *@bodyParam room1 int required count of location type 1
+     *@bodyParam room2 int required count of location type 2
+     *@bodyParam room3 int required count of location type 3
+     *@queryParam id int required id of user. Example: 3
+     *@queryParam type string required type of apartment. Example: Resident
+     *@queryParam created_at date required date of the creation
+     *@queryParam location string required type of apartment
      *
-     * @return \Illuminate\Http\Response
      */
     public function create()
     {
@@ -161,6 +212,22 @@ class AdminController extends Controller
         $users= User::orderBy('name','asc')->paginate(10);
         return view('admin.tables',compact('chart','linechart','roomchart'))->with('users',$users);
     }
+    
+    /**
+     * request user
+     * Display pending requests of users.
+     *@bodyParam posts1 int required count of hostel type
+     *@bodyParam posts2 int required count of resident type
+     *@bodyParam room1 int required count of location type 1
+     *@bodyParam room2 int required count of location type 2
+     *@bodyParam room3 int required count of location type 3
+     *@queryParam id int required id of user. Example: 3
+     *@queryParam type string required type of apartment. Example: Resident
+     *@queryParam created_at date required date of the creation
+     *@queryParam location string required type of apartment
+     *@queryParam admin string required status of request. Example: pending
+     *
+     */
 
     public function requestuser()
     {
@@ -189,6 +256,106 @@ class AdminController extends Controller
         $users = User::where('admin', '=', 'pending')->get();
         return view('admin.request',compact('chart','linechart','roomchart'))->with('admin',$users);
     }
+    
+    /**
+     * showrequestedapartments
+     * Display requested apartment of users.
+     * @bodyParam posts1 int required count of hostel type
+     * @bodyParam posts2 int required count of resident type
+     * @bodyParam room1 int required count of location type 1
+     * @bodyParam room2 int required count of location type 2
+     * @bodyParam room3 int required count of location type 3
+     * @querParam id int required id of user. Example: 3
+     * @queryParam type string required type of apartment. Example: Resident
+     * @queryParam created_at date required date of the creation
+     * @queryParam location string required type of apartment
+     * @queryParam admin string required status of request. Example: pending
+     *
+     */
+    
+    
+
+      public function showrequestedapartments()
+    {
+            #$user_id=auth()->user()->id;
+        $user=DB::table('posts')->get();
+        $roomm=DB::table('room_info')->get();
+    //   $posts= Post::where('booking','booked')->get();
+        //$rooms=new Room_info();
+
+    //   $posts = Post::where([['booking', '=', 'booked'],['user_id', '=', $user_id],])->get();
+       
+        $posts1= Post::where('type', 'Hostel')->count();;
+        $posts2= Post::where('type', 'Resident')->count();;
+        $chart = new pulseChart;
+        $chart->labels(['Resident', 'Hostel']);
+        $chart->dataset('My dataset', 'pie', [$posts2, $posts1]);
+        $users1 = User::whereDate('created_at', '2019-05-30')->count();
+        $users2 = User::whereDate('created_at', '2019-06-02')->count();
+        $users3 = User::whereDate('created_at', '2019-07-01')->count();
+         $users4 = User::whereDate('created_at', '2019-06-29')->count();
+         $linechart = new pulseChart;
+        $linechart->labels(['type1', 'type2','type3','type4']);
+        $linechart->dataset('Join', 'line', [$users1, $users2,$users3,$users4]);
+         $room1 = Post::where('location','LIKE', '%'.'motijheel'.'%')->count();
+         $room2 = Post::where('location','LIKE', '%'.'adabor'.'%')->count();
+          $room3 = Post::where('location','LIKE', '%'.'dhanmondi'.'%')->count();
+          $room4 = Post::where('location','LIKE', '%'.'farmgate'.'%')->count();
+          $room5 = Post::where('location','LIKE', '%'.'uttora'.'%')->count();
+           $room6 = Post::where('location','LIKE', '%'.'polasi'.'%')->count();
+         $roomchart = new pulseChart;
+         $roomchart->labels(['Motijheel','Adabor', 'Dhanmondi','Farmgate','Uttora','Polasi']);
+          $roomchart->dataset('Join', 'bar', [$room1, $room2,$room3,$room4,$room5,$room6]);
+        $users = User::where('admin', '=', 'pending')->get();
+        return view('admin.requestapartment',compact('chart','linechart','roomchart'))->with('posts',$user)->with('indiroom',$roomm);
+    }
+    
+    /**
+     * confirroomadmin
+     * admin confirm host room
+     *@queryParam id int required id of aparment
+     *@queryParam isapproved string required status of request. Example: CONFIRM
+     *
+     */
+    
+
+    public function confirroomadmin($id)
+    {
+         $post= Post::find($id);
+        $post->isapproved="CONFIRM";
+        $post->save();
+       // $users=User::first();
+    //dd($users);
+    $tt=Post::first();
+    //dd($tt);
+    return redirect('/admin/apartments');
+    }
+
+    /**
+     * cancelroomadmin
+     * admin cancels host room
+     *@queryParam id int required id of aparment
+     *@queryParam isapproved string required status of request. Example: CANCEL
+     *
+     */
+      public function cancelroomadmin($id)
+    {
+         $post= Post::find($id);
+        $post->isapproved="CANCEL";
+        $post->save();
+       // $users=User::first();
+    //dd($users);
+    $tt=Post::first();
+    //dd($tt);
+    return redirect('/admin/apartments');
+    }
+    
+    /**
+     * sendmail
+     * admin sends mail to host for confirmation
+     *@queryParam users int required id of user
+     *
+     */
 
     public function sendmail()
     {
@@ -219,7 +386,15 @@ class AdminController extends Controller
             return view("notadminhome");
         }
     }
-
+    
+    
+    /**
+     * confirmuser
+     * admin confirm user
+     *@queryParam id int required id of aparment
+     *@queryParam admin string required status of request. Example: YES
+     *
+     */
 
     public function confirmuser($id)
     {
@@ -234,6 +409,14 @@ class AdminController extends Controller
     return redirect('/admin');
     }
 
+    
+    /**
+     * blockuser
+     * admin can block user
+     *@queryParam id int required id of aparment
+     *@queryParam BLOCK int required status flag of request. Example: 1
+     *
+     */
       public function Blockuser($id)
     {
          $post= User::find($id);
@@ -243,6 +426,14 @@ class AdminController extends Controller
     //dd($users);
         return redirect('/admin/table');
     }
+    
+    /**
+     * unblockuser
+     * admin can unblock user
+     *@queryParam id int required id of aparment
+     *@queryParam BLOCK int required status flag of request. Example: 0
+     *
+     */
 
       public function UnBlockuser($id)
     {
@@ -299,6 +490,16 @@ class AdminController extends Controller
         //
     }
 
+
+
+    public function generatereport()
+    {
+        //
+         return view('admin.generatereport');
+    }
+
+
+
      public function get_customer_data()
     {
          $users= User::orderBy('name','asc')->get();
@@ -324,8 +525,10 @@ class AdminController extends Controller
     }
     public function convert_room_data_to_html($id)
     {
+         $user_name= User::find($id);
+        
         $room_data=$this->get_room_data($id);
-        $output= '<h2 align="center">Occupied Room</h2><table width="100%" style="border-collapse: collapse; border: 0px;">
+        $output= '<h2 align="center">Occupied Room</h2><h3>USER NAME: '.$user_name->name.'</h3><table width="100%" style="border-collapse: collapse; border: 0px;">
   <thead>
     <tr>
       <th style="border: 1px solid; padding:12px;" width="10%">Apartment Name</th>

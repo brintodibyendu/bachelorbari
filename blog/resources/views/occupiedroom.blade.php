@@ -25,6 +25,16 @@
           <i class="fas fa-fw fa-table"></i>
           <span>Rooms Currently Using</span></a>
       </li>
+       <li class="nav-item">
+        <a class="nav-link" href="usingroom">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Rooms I am Using</span></a>
+      </li>
+       <li class="nav-item">
+        <a class="nav-link" href="own">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Owner_rating</span></a>
+      </li>
     </ul>
 
 
@@ -47,6 +57,7 @@
       <th scope="col">To Date</th>
        <th scope="col">Booked By</th>
        <th scope="col">People &nbsp &nbsp &nbsp &nbsp Advertise</th>
+       <th scope="col">CHECKOUT</th>
     </tr>
   </thead>
   <tbody>
@@ -64,6 +75,14 @@
       @elseif($isblock==1)
       <td><button type="button" class="btn btn-primary" disabled>Advertise</button></td>
       @endif
+      <td>
+        @if($post->checkout==NULL)
+        {{ Form::open(['action'=>['DashboardController@checkout',$post->id],'method' => 'POST']) }}
+        {{Form::submit('Check Out',['class'=>'btn btn-primary'])}}{{ Form::close() }}
+        @else
+        <h5 style="color:blue">CHECKED</h5>
+        @endif
+      </td>
     </tr>
         @endforeach
        

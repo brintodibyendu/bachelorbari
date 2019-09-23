@@ -25,19 +25,23 @@
             <th>Location</th>
             <th>Contact Number</th>
             <th>Action</th>
+            <th>Profile</th>
    		</tr>
    	</thead>
    	<tbody>
    		@foreach($posts as $post)
    		<tr>
         @foreach($usersb as $ub)
-          @if($ub->id==$post->user_id)
+          @if($ub->id==$post->user_id && $post->isapproved=="CONFIRM")
    			<td>{{$post->title}}</td>
    			<td>{{$post->type}}</td>
             <td>{{$post->location}}</td>
             <td>{{$post->contact}}</td>
             <td>
                <a href="/posts/{{$post->id}}" class="btn btn-info">Show</a>
+            </td>
+            <td>
+               <a href="/pos/{{$post->user_id}}" class="btn btn-info">Show Profile</a>
             </td>
             @endif
             @endforeach

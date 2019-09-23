@@ -1,0 +1,909 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>API Reference</title>
+
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="js/all.js"></script>
+
+
+          <script>
+        $(function() {
+            setupLanguages(["bash","javascript"]);
+        });
+      </script>
+      </head>
+
+  <body class="">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="images/navbar.png" />
+      </span>
+    </a>
+    <div class="tocify-wrapper">
+        <img src="images/logo.png" />
+                    <div class="lang-selector">
+                                  <a href="#" data-language-name="bash">bash</a>
+                                  <a href="#" data-language-name="javascript">javascript</a>
+                            </div>
+                            <div class="search">
+              <input type="text" class="search" id="input-search" placeholder="Search">
+            </div>
+            <ul class="search-results"></ul>
+              <div id="toc">
+      </div>
+                    <ul class="toc-footer">
+                                  <li><a href='http://github.com/mpociot/documentarian'>Documentation Powered by Documentarian</a></li>
+                            </ul>
+            </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+          <!-- START_INFO -->
+<h1>Info</h1>
+<p>Welcome to the generated API reference.
+<a href="http://localhost/docs/collection.json">Get Postman Collection</a></p>
+<!-- END_INFO -->
+<h1>general</h1>
+<!-- START_423a34fae977db15b97b2d151ba1da4a -->
+<h2>services</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET -G "http://localhost/services" </code></pre>
+<pre><code class="language-javascript">const url = new URL("http://localhost/services");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (500):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "Server Error"
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET services</code></p>
+<!-- END_423a34fae977db15b97b2d151ba1da4a -->
+<!-- START_978103a47462dad23ed4af60f2503c8c -->
+<h2>Display the information of the Host</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET -G "http://localhost/pos/1" \
+    -H "Content-Type: application/json" \
+    -d '{"user":"libero","review":"ipsa"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL("http://localhost/pos/1");
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "user": "libero",
+    "review": "ipsa"
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (401):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "Unauthenticated."
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET pos/{id}</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>user</td>
+<td>find</td>
+<td>optional</td>
+<td>the user who is the owner of that room</td>
+</tr>
+<tr>
+<td>review</td>
+<td>the</td>
+<td>optional</td>
+<td>review that the host giving</td>
+</tr>
+</tbody>
+</table>
+<!-- END_978103a47462dad23ed4af60f2503c8c -->
+<!-- START_c0f505b72e10817948e65eb5eb744708 -->
+<h2>Normal Search</h2>
+<p>Normal search function to maintain the normal search field of the View page.</p>
+<p>Based on Apartment name and Location of the apartment</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET -G "http://localhost/search" \
+    -H "Content-Type: application/json" \
+    -d '{"products":"porro","posts":"officiis","users":"ullam"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL("http://localhost/search");
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "products": "porro",
+    "posts": "officiis",
+    "users": "ullam"
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (500):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "Server Error"
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET search</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>products</td>
+<td>select</td>
+<td>optional</td>
+<td>the id for recommendation system.</td>
+</tr>
+<tr>
+<td>posts</td>
+<td>is</td>
+<td>optional</td>
+<td>the collection of the post that is generate by the query.</td>
+</tr>
+<tr>
+<td>users</td>
+<td>is</td>
+<td>optional</td>
+<td>defined taht whther the user is blocked or not</td>
+</tr>
+</tbody>
+</table>
+<!-- END_c0f505b72e10817948e65eb5eb744708 -->
+<!-- START_91fc84b9ac6c30795e3f5254f4fded6e -->
+<h2>Advance Search</h2>
+<p>Advance search function to maintain the advance search field of the Home page.</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET -G "http://localhost/advancesearch" \
+    -H "Content-Type: application/json" \
+    -d '{"namesearch":"quis","areasearch":"quaerat","is_family":"odio","is_friend":"harum","$pet":"impedit","student":"dolores","job_seeker":"adipisci","late_night":"illo"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL("http://localhost/advancesearch");
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "namesearch": "quis",
+    "areasearch": "quaerat",
+    "is_family": "odio",
+    "is_friend": "harum",
+    "$pet": "impedit",
+    "student": "dolores",
+    "job_seeker": "adipisci",
+    "late_night": "illo"
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (500):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "Server Error"
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET advancesearch</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>namesearch</td>
+<td>required</td>
+<td>optional</td>
+<td>The title of the search.</td>
+</tr>
+<tr>
+<td>areasearch</td>
+<td>string</td>
+<td>required</td>
+<td>The area name of the search.</td>
+</tr>
+<tr>
+<td>is_family</td>
+<td>string</td>
+<td>optional</td>
+<td>The family of checkbox</td>
+</tr>
+<tr>
+<td>is_friend</td>
+<td>string</td>
+<td>optional</td>
+<td>The friend of checkbox</td>
+</tr>
+<tr>
+<td>$pet</td>
+<td>string</td>
+<td>optional</td>
+<td>The friend of checkbox</td>
+</tr>
+<tr>
+<td>student</td>
+<td>string</td>
+<td>optional</td>
+<td>The student of checkbox</td>
+</tr>
+<tr>
+<td>job_seeker</td>
+<td>string</td>
+<td>optional</td>
+<td>The job_seeker of checkbox</td>
+</tr>
+<tr>
+<td>late_night</td>
+<td>string</td>
+<td>optional</td>
+<td>The late_night of checkbox</td>
+</tr>
+</tbody>
+</table>
+<!-- END_91fc84b9ac6c30795e3f5254f4fded6e -->
+<!-- START_3c125327f41f9f867eae75fd1cd0df93 -->
+<h2>To track the Checkout hostory of the user</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST "http://localhost/usingroom/1/1" \
+    -H "Content-Type: application/json" \
+    -d '{"room_rating":"ullam","post":"perspiciatis","room_reveiew":"eaque","status":"similique","room_id":13,"user_name":"laboriosam","avg":"vitae","user_average_rating":15,"user_indi_review":"veniam","user_id":17,"contact":"ullam","cover_image":"quo","family":"unde"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL("http://localhost/usingroom/1/1");
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "room_rating": "ullam",
+    "post": "perspiciatis",
+    "room_reveiew": "eaque",
+    "status": "similique",
+    "room_id": 13,
+    "user_name": "laboriosam",
+    "avg": "vitae",
+    "user_average_rating": 15,
+    "user_indi_review": "veniam",
+    "user_id": 17,
+    "contact": "ullam",
+    "cover_image": "quo",
+    "family": "unde"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST usingroom/{id}/{id1}</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>room_rating</td>
+<td>check</td>
+<td>optional</td>
+<td>whther all the variables are correctly given</td>
+</tr>
+<tr>
+<td>post</td>
+<td>string</td>
+<td>optional</td>
+<td>collection of the room.</td>
+</tr>
+<tr>
+<td>room_reveiew</td>
+<td>string</td>
+<td>optional</td>
+<td>review given to taht room</td>
+</tr>
+<tr>
+<td>status</td>
+<td>string</td>
+<td>optional</td>
+<td>Detail description of the apartment</td>
+</tr>
+<tr>
+<td>room_id</td>
+<td>integer</td>
+<td>optional</td>
+<td>id of the user who giving the rating</td>
+</tr>
+<tr>
+<td>user_name</td>
+<td>string</td>
+<td>optional</td>
+<td>name of the user who gives rating</td>
+</tr>
+<tr>
+<td>avg</td>
+<td>string</td>
+<td>optional</td>
+<td>calculate the avg rating of the current user</td>
+</tr>
+<tr>
+<td>user_average_rating</td>
+<td>integer</td>
+<td>optional</td>
+<td>average rating given from the user</td>
+</tr>
+<tr>
+<td>user_indi_review</td>
+<td>string</td>
+<td>optional</td>
+<td>Individual review of the user</td>
+</tr>
+<tr>
+<td>user_id</td>
+<td>integer</td>
+<td>optional</td>
+<td>the id of the user that givinf the rating</td>
+</tr>
+<tr>
+<td>contact</td>
+<td>string</td>
+<td>optional</td>
+<td>contact no of the apartment</td>
+</tr>
+<tr>
+<td>cover_image</td>
+<td>string</td>
+<td>optional</td>
+<td>picture of the cover image of the apartment</td>
+</tr>
+<tr>
+<td>family</td>
+<td>family</td>
+<td>optional</td>
+<td>is allowed or not</td>
+</tr>
+</tbody>
+</table>
+<!-- END_3c125327f41f9f867eae75fd1cd0df93 -->
+<!-- START_967e8c148fbde814d9ccdf2f114c8700 -->
+<h2>Book Room</h2>
+<p>Request for booking a room to the owner of that room
+also update the necessary information in the database</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST "http://localhost/dpractice/1" \
+    -H "Content-Type: application/json" \
+    -d '{"post":"ea","request_from_date":"nesciunt","request_to_date":"repellendus","body":"qui","booking":"et","user_name":"est","rpname":"exercitationem"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL("http://localhost/dpractice/1");
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "post": "ea",
+    "request_from_date": "nesciunt",
+    "request_to_date": "repellendus",
+    "body": "qui",
+    "booking": "et",
+    "user_name": "est",
+    "rpname": "exercitationem"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST dpractice/{id}</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>post</td>
+<td>collection</td>
+<td>optional</td>
+<td>list of the books that is necessary for the booking</td>
+</tr>
+<tr>
+<td>request_from_date</td>
+<td>date</td>
+<td>optional</td>
+<td>input for the given from date.</td>
+</tr>
+<tr>
+<td>request_to_date</td>
+<td>date</td>
+<td>optional</td>
+<td>input for the given to date.</td>
+</tr>
+<tr>
+<td>body</td>
+<td>string</td>
+<td>optional</td>
+<td>Detail description of the apartment</td>
+</tr>
+<tr>
+<td>booking</td>
+<td>string</td>
+<td>optional</td>
+<td>decide whther the room is booked or not.</td>
+</tr>
+<tr>
+<td>user_name</td>
+<td>string</td>
+<td>optional</td>
+<td>name of the owner of the apartment</td>
+</tr>
+<tr>
+<td>rpname</td>
+<td>the</td>
+<td>optional</td>
+<td>name of the consecutive apartment of that room</td>
+</tr>
+</tbody>
+</table>
+<!-- END_967e8c148fbde814d9ccdf2f114c8700 -->
+<!-- START_e610a9c5a311050cb00aa52e7c941bec -->
+<h2>Give review to a specefic room for an apartment</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST "http://localhost/dashboard/usingroom/1/1" \
+    -H "Content-Type: application/json" \
+    -d '{"room_rating":"vel","post":"culpa","room_reveiew":"et","status":"maxime","room_id":18,"user_name":"quibusdam","avg":"rerum","user_average_rating":2,"user_indi_review":"nesciunt","user_id":9,"contact":"accusantium","cover_image":"eum","family":"omnis"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL("http://localhost/dashboard/usingroom/1/1");
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "room_rating": "vel",
+    "post": "culpa",
+    "room_reveiew": "et",
+    "status": "maxime",
+    "room_id": 18,
+    "user_name": "quibusdam",
+    "avg": "rerum",
+    "user_average_rating": 2,
+    "user_indi_review": "nesciunt",
+    "user_id": 9,
+    "contact": "accusantium",
+    "cover_image": "eum",
+    "family": "omnis"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST dashboard/usingroom/{id}/{id1}</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>room_rating</td>
+<td>check</td>
+<td>optional</td>
+<td>whther all the variables are correctly given</td>
+</tr>
+<tr>
+<td>post</td>
+<td>string</td>
+<td>optional</td>
+<td>collection of the room.</td>
+</tr>
+<tr>
+<td>room_reveiew</td>
+<td>string</td>
+<td>optional</td>
+<td>review given to taht room</td>
+</tr>
+<tr>
+<td>status</td>
+<td>string</td>
+<td>optional</td>
+<td>Detail description of the apartment</td>
+</tr>
+<tr>
+<td>room_id</td>
+<td>integer</td>
+<td>optional</td>
+<td>id of the user who giving the rating</td>
+</tr>
+<tr>
+<td>user_name</td>
+<td>string</td>
+<td>optional</td>
+<td>name of the user who gives rating</td>
+</tr>
+<tr>
+<td>avg</td>
+<td>string</td>
+<td>optional</td>
+<td>calculate the avg rating of the current user</td>
+</tr>
+<tr>
+<td>user_average_rating</td>
+<td>integer</td>
+<td>optional</td>
+<td>average rating given from the user</td>
+</tr>
+<tr>
+<td>user_indi_review</td>
+<td>string</td>
+<td>optional</td>
+<td>Individual review of the user</td>
+</tr>
+<tr>
+<td>user_id</td>
+<td>integer</td>
+<td>optional</td>
+<td>the id of the user that givinf the rating</td>
+</tr>
+<tr>
+<td>contact</td>
+<td>string</td>
+<td>optional</td>
+<td>contact no of the apartment</td>
+</tr>
+<tr>
+<td>cover_image</td>
+<td>string</td>
+<td>optional</td>
+<td>picture of the cover image of the apartment</td>
+</tr>
+<tr>
+<td>family</td>
+<td>family</td>
+<td>optional</td>
+<td>is allowed or not</td>
+</tr>
+</tbody>
+</table>
+<!-- END_e610a9c5a311050cb00aa52e7c941bec -->
+<!-- START_053eb8f2c61177250405ba0820861157 -->
+<h2>Give review to a specefic user</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST "http://localhost/dashboard/own/1" \
+    -H "Content-Type: application/json" \
+    -d '{"user_rating":"dolorem","post":"itaque","user_reveiew":"odio","status":"excepturi","user_id":19,"user_name":"voluptas","avg":"eum","user_average_rating":10,"user_indi_review":"repellendus","cost_basis":"consequatur","contact":"voluptas","cover_image":"quia","family":"incidunt","friends":"provident","pet_allow":"voluptatibus","student":"eveniet","job_seeker":"voluptatum"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL("http://localhost/dashboard/own/1");
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "user_rating": "dolorem",
+    "post": "itaque",
+    "user_reveiew": "odio",
+    "status": "excepturi",
+    "user_id": 19,
+    "user_name": "voluptas",
+    "avg": "eum",
+    "user_average_rating": 10,
+    "user_indi_review": "repellendus",
+    "cost_basis": "consequatur",
+    "contact": "voluptas",
+    "cover_image": "quia",
+    "family": "incidunt",
+    "friends": "provident",
+    "pet_allow": "voluptatibus",
+    "student": "eveniet",
+    "job_seeker": "voluptatum"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST dashboard/own/{id}</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>user_rating</td>
+<td>check</td>
+<td>optional</td>
+<td>whther all the variables are correctly given</td>
+</tr>
+<tr>
+<td>post</td>
+<td>string</td>
+<td>optional</td>
+<td>collection of the room.</td>
+</tr>
+<tr>
+<td>user_reveiew</td>
+<td>string</td>
+<td>optional</td>
+<td>review given to taht room</td>
+</tr>
+<tr>
+<td>status</td>
+<td>string</td>
+<td>optional</td>
+<td>Detail description of the apartment</td>
+</tr>
+<tr>
+<td>user_id</td>
+<td>integer</td>
+<td>optional</td>
+<td>id of the user who giving the rating</td>
+</tr>
+<tr>
+<td>user_name</td>
+<td>string</td>
+<td>optional</td>
+<td>name of the user who gives rating</td>
+</tr>
+<tr>
+<td>avg</td>
+<td>string</td>
+<td>optional</td>
+<td>calculate the avg rating of the current user</td>
+</tr>
+<tr>
+<td>user_average_rating</td>
+<td>integer</td>
+<td>optional</td>
+<td>average rating given from the user</td>
+</tr>
+<tr>
+<td>user_indi_review</td>
+<td>string</td>
+<td>optional</td>
+<td>Individual review of the user</td>
+</tr>
+<tr>
+<td>cost_basis</td>
+<td>string</td>
+<td>optional</td>
+<td>Payment type of apartment</td>
+</tr>
+<tr>
+<td>contact</td>
+<td>string</td>
+<td>optional</td>
+<td>contact no of the apartment</td>
+</tr>
+<tr>
+<td>cover_image</td>
+<td>string</td>
+<td>optional</td>
+<td>picture of the cover image of the apartment</td>
+</tr>
+<tr>
+<td>family</td>
+<td>family</td>
+<td>optional</td>
+<td>is allowed or not</td>
+</tr>
+<tr>
+<td>friends</td>
+<td>string</td>
+<td>optional</td>
+<td>friend is allowed or not</td>
+</tr>
+<tr>
+<td>pet_allow</td>
+<td>string</td>
+<td>optional</td>
+<td>pet is allowed or not</td>
+</tr>
+<tr>
+<td>student</td>
+<td>string</td>
+<td>optional</td>
+<td>pet is allowed or not</td>
+</tr>
+<tr>
+<td>job_seeker</td>
+<td>string</td>
+<td>optional</td>
+<td>pet is allowed or not</td>
+</tr>
+</tbody>
+</table>
+<!-- END_053eb8f2c61177250405ba0820861157 -->
+<!-- START_e3cc379ca52162f95a8cf080ca43e14e -->
+<h2>Display the information of the User</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET -G "http://localhost/dashboard/want/1" \
+    -H "Content-Type: application/json" \
+    -d '{"user":"asperiores","review":"nihil"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL("http://localhost/dashboard/want/1");
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "user": "asperiores",
+    "review": "nihil"
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (401):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "Unauthenticated."
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET dashboard/want/{id}</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>user</td>
+<td>find</td>
+<td>optional</td>
+<td>the user who is the owner of that room</td>
+</tr>
+<tr>
+<td>review</td>
+<td>the</td>
+<td>optional</td>
+<td>review that the user giving</td>
+</tr>
+</tbody>
+</table>
+<!-- END_e3cc379ca52162f95a8cf080ca43e14e -->
+      </div>
+      <div class="dark-box">
+                        <div class="lang-selector">
+                                    <a href="#" data-language-name="bash">bash</a>
+                                    <a href="#" data-language-name="javascript">javascript</a>
+                              </div>
+                </div>
+    </div>
+  </body>
+</html>

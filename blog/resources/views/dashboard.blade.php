@@ -27,6 +27,11 @@
           <i class="fas fa-fw fa-table"></i>
           <span>Rooms Currently Using</span></a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="dashboard/usingroom">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Rooms I am Using</span></a>
+      </li>
     </ul>
 
 
@@ -50,6 +55,7 @@
                             <th>Action</th>
                             <th>Action</th>
                             <th>ROOM</th>
+                            <th>APPROVED</th>
                         </tr>
                         @foreach($posts as $post)
                         <tr id="row{{$post->id}}" class="clickable" data-toggle="collapse" data-target=".row{{$post->id}}">
@@ -62,6 +68,7 @@
                                 {{Form::close()}}
                             </th>
                             <td><i class="glyphicon glyphicon-plus"><button class="btn btn-primary">Show Rooms</button></i></td>
+                            <th>{{$post->isapproved}}</th>
                         </tr>
                          <tr class="collapse row{{$post->id}}">
                               <th>Flat Name</th><th>People</th><th>Cost</th><th>From</th><th>To</th>

@@ -27,6 +27,16 @@
           <i class="fas fa-fw fa-table"></i>
           <span>Rooms Currently Using</span></a>
       </li>
+       <li class="nav-item">
+        <a class="nav-link" href="usingroom">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Rooms I am Using</span></a>
+      </li>
+       <li class="nav-item">
+        <a class="nav-link" href="own">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Owner_rating</span></a>
+      </li>
     </ul>
 
 
@@ -47,6 +57,7 @@
        <th scope="col">Requested By</th>
       <th scope="col">Confirm</th>
       <th scope="col">Cancel</th>
+      <th scope="col">Show Profile</th>
     </tr>
   </thead>
           @foreach($posts as $post)
@@ -65,6 +76,9 @@
                 {{ Form::open(['action'=>['DashboardController@cancelroom',$post->room_id,$post->id],'method' => 'POST']) }}
                 {{Form::submit('Cancel',['class'=>'btn btn-primary'])}}
                 {{ Form::close() }}</td>
+                <td>
+                   <a href="/dashboard/want/{{$post->requested_by_id}}" class="btn btn-info">Show Profile</a>
+                </td>
       @elseif($isblock==1)
       <td><button type="button" class="btn btn-primary" disabled>Confirm</button></td>
       <td><button type="button" class="btn btn-primary" disabled>Cancel</button></td>

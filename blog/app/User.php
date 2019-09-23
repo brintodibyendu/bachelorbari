@@ -45,6 +45,16 @@ class User extends Authenticatable
         return $this->hasMany('App\room_book');
     }
 
+     public function requestapartment()
+    {
+        return $this->hasMany('App\Requestroomadmin');
+    }
+
+     public function requestroom()
+    {
+        return $this->hasMany('App\request_room_info');
+    }
+
     /**
      * The attributes that should be cast to native types.
      *

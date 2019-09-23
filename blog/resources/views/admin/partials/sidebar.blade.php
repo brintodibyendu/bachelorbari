@@ -11,16 +11,26 @@
       <li class="nav-item">
         <a class="nav-link" href="{{url('admin/requestuser')}}">
           <i class="fas fa-fw fa-chart-area"></i>
-          <span>Requests</span></a>
+          <span>User Requests</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="{{url('admin/chart')}}">
           <i class="fas fa-fw fa-chart-area"></i>
-          <span>Charts</span></a>
+          <span>Statistics Charts</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="{{url('admin/table')}}">
           <i class="fas fa-fw fa-table"></i>
-          <span>Tables</span></a>
+          <span>Manage Users</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{url('admin/apartments')}}">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Apartments Requests</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{url('admin/reports')}}">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Generate Reports</span></a>
       </li>
     </ul>

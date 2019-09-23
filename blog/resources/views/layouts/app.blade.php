@@ -144,6 +144,8 @@
 
 
 
+
+
       
     </style>
 
@@ -381,13 +383,167 @@ function closeForm() {
         function myFunction(x) {
   var x1 = document.getElementById("table").rows.length;
   var y=document.getElementById("table").rows[x.rowIndex].cells;
-  document.getElementById("fname").value=y[0].innerHTML;
-   document.getElementById("fpeople").value=y[1].innerHTML;
-    document.getElementById("fcost").value=y[2].innerHTML;
+  document.getElementById("fname").value=y[2].innerHTML;
+   document.getElementById("fpeople").value=y[3].innerHTML;
+    document.getElementById("fcost").value=y[4].innerHTML;
 }
 
+/*function myFunction11() {
+  // Declare variables
+  var input, filter, ul, li, a, i, txtValue;
+  input = document.getElementById('myInput');
+  filter = input.value.toUpperCase();
+  ul = document.getElementById("table");
+ // console.log(ul);
+  li = ul.getElementsByTagName('tr');
+  console.log(li);
+  // Loop through all list items, and hide those who don't match the search query
+  for (i = 0; i < li.length; i++) {
+    a = li[i].getElementsByTagName("td")[0];
+    console.log(a);
+    txtValue = a.textContent || a.innerText;
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      li[i].style.display = "";
+    } else {
+      li[i].style.display = "none";
+    }
+  }
+}*/
+function myFunction11() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+   
+  filter = input.value.toUpperCase();
+  console.log(filter);
+  table = document.getElementById("table");
+  tr = table.getElementsByTagName("tr");
 
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    //console.log(td);
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+       console.log(txtValue);
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+         console.log(1);
+      } else {
+        tr[i].style.display = "none";
+         console.log(2);
+      }
+    }
+  }
+}
 
+ function ddlselect99()
+{
+    var d=document.getElementById("brinto555");
+    var d1=document.getElementById("brinto5552");
+    var displaytext=d.value;
+     var displaytext2=d1.value;
+    document.getElementById("myInput").value=displaytext;
+    myFunction11();
+}
+function ddlselect991()
+{
+    
+    var d1=document.getElementById("brinto5552");
+    
+     var displaytext2=d1.value;
+    document.getElementById("myInput").value=displaytext2;
+    myFunction11();
+}
+function myFunction12() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput1");
+   
+  filter = input.value.toUpperCase();
+  console.log(filter);
+  table = document.getElementById("table");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    //console.log(td);
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+       console.log(txtValue);
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+         console.log(1);
+      } else {
+        tr[i].style.display = "none";
+         console.log(2);
+      }
+    }
+  }
+}
+
+ function ddlselect95()
+{
+    var d=document.getElementById("brinto55");
+    var d1=document.getElementById("brinto552");
+    var displaytext=d.value;
+     var displaytext2=d1.value;
+    document.getElementById("myInput1").value=displaytext;
+    myFunction12();
+}
+function ddlselect951()
+{
+    
+    var d1=document.getElementById("brinto552");
+    
+     var displaytext2=d1.value;
+    document.getElementById("myInput1").value=displaytext2;
+    myFunction12();
+}
+/*filterSelection("all")
+function filterSelection(c) {
+  var x, i;
+  x = document.getElementsByClassName("filterDiv");
+  console.log(x);
+  if (c == "all") c = "";
+  for (i = 0; i < x.length; i++) {
+    w3RemoveClass(x[i], "show");
+    if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
+  }
+}
+
+function w3AddClass(element, name) {
+  var i, arr1, arr2;
+  arr1 = element.className.split(" ");
+  arr2 = name.split(" ");
+  for (i = 0; i < arr2.length; i++) {
+    if (arr1.indexOf(arr2[i]) == -1) {element.className += " " + arr2[i];}
+  }
+}
+
+function w3RemoveClass(element, name) {
+  var i, arr1, arr2;
+  arr1 = element.className.split(" ");
+  arr2 = name.split(" ");
+  for (i = 0; i < arr2.length; i++) {
+    while (arr1.indexOf(arr2[i]) > -1) {
+      arr1.splice(arr1.indexOf(arr2[i]), 1);     
+    }
+  }
+  element.className = arr1.join(" ");
+}
+
+// Add active class to the current button (highlight it)
+var btnContainer = document.getElementById("myBtnContainer");
+var btns = btnContainer.getElementsByClassName("btn");
+for (var i = 0; i < btns.length; i++) {
+  btns[i].addEventListener("click", function(){
+    var current = document.getElementsByClassName("active");
+    current[0].className = current[0].className.replace(" active", "");
+    this.className += " active";
+  });
+}*/
 </script>
 
     <!-- Fonts -->

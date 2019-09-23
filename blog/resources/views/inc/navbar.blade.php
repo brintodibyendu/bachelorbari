@@ -17,16 +17,13 @@
         <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
       </li>
       <li>
-        <a class="nav-link" href="/about">About</a>
-      </li>
-      <li>
-        <a class="nav-link" href="/services">Service</a>
-      </li>
-      <li>
         <a class="nav-link" href="/posts">Rooms</a>
       </li>
       <li>
         <a class="nav-link" href="/notify">Notifications</a>
+      </li>
+        <li>
+        <a class="nav-link" href="/myprofile">My Profile</a>
       </li>
     </ul>
                     <!-- Right Side Of Navbar -->

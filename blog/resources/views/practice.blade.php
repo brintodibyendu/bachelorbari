@@ -53,6 +53,7 @@
           <h5><label data-error="wrong" data-success="right" for="form29">Area</label></h5>
           <i class="fas fa-envelope prefix grey-text"></i>
            <select id="areas" onclick="selectarea();">
+            <option></option>>
             <option>uttora</option> 
             <option>adabor</option>
             <option>azimpur</option>
@@ -117,17 +118,17 @@
           <div class="col-md-4">
             <h2>Ambition</h2>
             <p>it is established due to the necessity of bachelors. As population is increasing, it is getting really difficult to find accomodations for bachelors. Some social misinterpretation lies behind it. </p>
-            <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+           
           </div>
           <div class="col-md-4">
             <h2>Goal</h2>
             <p>New rooms are available here in dhanmondi,mdpur,mirpur rampura etc etc. you can find homelike environment here.  </p>
-            <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+            
           </div>
           <div class="col-md-4">
             <h2>Vision</h2>
             <p>Our vision is to spead this facility across the country</p>
-            <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+          
           </div>
         </div>
 

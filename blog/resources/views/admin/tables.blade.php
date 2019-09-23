@@ -16,7 +16,6 @@
           <div class="card-header">
             <i class="fas fa-table"></i>
             User Table</div>
-     <a href="{{ url('/admin/table/pdf') }}" class="btn btn-primary">PDF REPORT</a>
           <div class="card-body">
             <div class="table-responsive">
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -28,8 +27,8 @@
                     <th>Age</th>
                     <th>National ID</th>
                     <th>Start Date</th>
-                    <th>Block</th>
                     <th>SHOW DETAILS</th>
+                    <th>BLOCK</th>
                   </tr>
                 </thead>
                 <tfoot>
